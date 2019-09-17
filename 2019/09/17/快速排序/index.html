@@ -64,7 +64,7 @@
 <meta property="og:description" content="描述：通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。 快速排序递归的将子数组arr[left, right]排序，一般是取a[left]作为切分元素，这个元素就是那个将要被排序的元素，然后调用partition()方法将arr[left]放到一个">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/b1bbb565gy1g72y7j4vjkj207305b0sr.jpg">
-<meta property="og:updated_time" content="2019-09-17T15:51:59.039Z">
+<meta property="og:updated_time" content="2019-09-17T16:04:36.527Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="快速排序">
 <meta name="twitter:description" content="描述：通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。 快速排序递归的将子数组arr[left, right]排序，一般是取a[left]作为切分元素，这个元素就是那个将要被排序的元素，然后调用partition()方法将arr[left]放到一个">
@@ -228,11 +228,19 @@
                 
               
 
-              <time title="Erstellt: 2019-09-17 21:46:41 / Geändert am: 23:51:59" itemprop="dateCreated datePublished" datetime="2019-09-17T21:46:41+08:00">2019-09-17</time>
+              <time title="Erstellt: 2019-09-17 21:46:41" itemprop="dateCreated datePublished" datetime="2019-09-17T21:46:41+08:00">2019-09-17</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Bearbeitet am</span>
+                <time title="Geändert am: 2019-09-18 00:04:36" itemprop="dateModified" datetime="2019-09-18T00:04:36+08:00">2019-09-18</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -276,7 +284,58 @@
 </ol>
 <p>如图：</p>
 <p><img src="http://ww1.sinaimg.cn/large/b1bbb565gy1g72y7j4vjkj207305b0sr.jpg" alt="quick_sort.png"></p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><pre><code>import java.util.Arrays;
+
+/**
+ * 快速排序
+ * @author gelong
+ * @date 2019/9/15 21:38
+ */
+public class QuickSort {
+
+    private static void quickSort(int []arr) {
+        quickSort(arr, 0, arr.length - 1);
+    }
+
+    /**
+     * 快速排序[left, right)
+     * @param arr 需要排序的数组
+     * @param left 排序数组的开始下标
+     * @param right 排序数组的结束下标
+     */
+    private static void quickSort(int []arr, int left, int right) {
+        if (left &gt;= right) {
+            return;
+        }
+        int p = partition(arr, left, right);
+        quickSort(arr, left, p - 1);
+        quickSort(arr, p + 1, right);
+    }
+
+    private static int partition(int[] arr, int left, int right) {
+        int j = left;
+        int v = arr[left];
+        for (int i = left + 1; i &lt;= right; i++) {
+            if (arr[i] &lt; v) {
+                swap(arr, i, ++j);
+            }
+        }
+        swap(arr, left, j);
+        return j;
+    }
+
+    private static void swap(int []arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    public static void main(String[] args) {
+        int []arr = {3, 1, 4, 5, 2};
+        QuickSort.quickSort(arr);
+        System.out.println(Arrays.toString(arr));
+    }
+}</code></pre>
     </div>
 
     
