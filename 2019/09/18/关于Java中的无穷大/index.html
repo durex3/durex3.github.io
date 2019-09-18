@@ -25,10 +25,10 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Gemini',
     version: '7.4.0',
     exturl: false,
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    sidebar: "",
     copycode: {"enable":false,"show_result":false,"style":null},
     back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
     bookmark: {"enable":false,"color":"#222","save":"auto"},
@@ -55,18 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="最近笔试遇到一道题，没有做出来。 题目内容如下：double a = 60.00; double b = 0.00; System.out.println(a / b);这段代码运行结果如下：Infinity原因：&amp;emsp;浮点型是不精确的，所以0.00并等于0，是无限趋近于0；而根据高数中无穷大的理解，分母无限趋近于0，分子为常数，会得到无穷大。&amp;emsp;Java中有一个特殊值：Infini">
+  <meta name="description" content="最近笔试遇到一道题，没有做出来。 题目内容如下：double a = 60.00; double b = 0.00; System.out.println(a / b);这段代码运行结果如下：Infinity原因：&amp;emsp;浮点型是不精确的，所以0.00并不等于0，是无限趋近于0；而根据高数中无穷大的理解，分母无限趋近于0，分子为常数，会得到无穷大。&amp;emsp;Java中有一个特殊值：Infin">
 <meta name="keywords" content="Java,Infinity">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于Java中的无穷大">
 <meta property="og:url" content="https://durex3.github.io/2019/09/18/关于Java中的无穷大/index.html">
 <meta property="og:site_name" content="阁隆的博客">
-<meta property="og:description" content="最近笔试遇到一道题，没有做出来。 题目内容如下：double a = 60.00; double b = 0.00; System.out.println(a / b);这段代码运行结果如下：Infinity原因：&amp;emsp;浮点型是不精确的，所以0.00并等于0，是无限趋近于0；而根据高数中无穷大的理解，分母无限趋近于0，分子为常数，会得到无穷大。&amp;emsp;Java中有一个特殊值：Infini">
+<meta property="og:description" content="最近笔试遇到一道题，没有做出来。 题目内容如下：double a = 60.00; double b = 0.00; System.out.println(a / b);这段代码运行结果如下：Infinity原因：&amp;emsp;浮点型是不精确的，所以0.00并不等于0，是无限趋近于0；而根据高数中无穷大的理解，分母无限趋近于0，分子为常数，会得到无穷大。&amp;emsp;Java中有一个特殊值：Infin">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-18T05:39:11.102Z">
+<meta property="og:updated_time" content="2019-09-18T05:43:53.953Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于Java中的无穷大">
-<meta name="twitter:description" content="最近笔试遇到一道题，没有做出来。 题目内容如下：double a = 60.00; double b = 0.00; System.out.println(a / b);这段代码运行结果如下：Infinity原因：&amp;emsp;浮点型是不精确的，所以0.00并等于0，是无限趋近于0；而根据高数中无穷大的理解，分母无限趋近于0，分子为常数，会得到无穷大。&amp;emsp;Java中有一个特殊值：Infini">
+<meta name="twitter:description" content="最近笔试遇到一道题，没有做出来。 题目内容如下：double a = 60.00; double b = 0.00; System.out.println(a / b);这段代码运行结果如下：Infinity原因：&amp;emsp;浮点型是不精确的，所以0.00并不等于0，是无限趋近于0；而根据高数中无穷大的理解，分母无限趋近于0，分子为常数，会得到无穷大。&amp;emsp;Java中有一个特殊值：Infin">
   <link rel="canonical" href="https://durex3.github.io/2019/09/18/关于Java中的无穷大/">
 
 
@@ -164,6 +164,39 @@
       
       
         
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>Über</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+
+  </li>
+      
+      
+      
+        
         <li class="menu-item menu-item-archives">
       
     
@@ -172,8 +205,6 @@
 
   </li>
   </ul>
-
-    
 
 </nav>
 </div>
@@ -189,6 +220,8 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+            
+
           <div id="content" class="content">
             
 
@@ -203,7 +236,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="阁隆">
       <meta itemprop="description" content="技术博客，Java，Golang，数据结构，算法">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/header.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -226,7 +259,7 @@
                 
               
 
-              <time title="Erstellt: 2019-09-18 13:11:50 / Geändert am: 13:39:11" itemprop="dateCreated datePublished" datetime="2019-09-18T13:11:50+08:00">2019-09-18</time>
+              <time title="Erstellt: 2019-09-18 13:11:50 / Geändert am: 13:43:53" itemprop="dateCreated datePublished" datetime="2019-09-18T13:11:50+08:00">2019-09-18</time>
             </span>
           
             
@@ -261,7 +294,7 @@
         <p>最近笔试遇到一道题，没有做出来。</p>
 <h3 id="题目内容如下："><a href="#题目内容如下：" class="headerlink" title="题目内容如下："></a>题目内容如下：</h3><pre><code>double a = 60.00;
 double b = 0.00;
-System.out.println(a / b);</code></pre><h3 id="这段代码运行结果如下："><a href="#这段代码运行结果如下：" class="headerlink" title="这段代码运行结果如下："></a>这段代码运行结果如下：</h3><pre><code>Infinity</code></pre><h3 id="原因："><a href="#原因：" class="headerlink" title="原因："></a>原因：</h3><p>&emsp;浮点型是不精确的，所以0.00并等于0，是无限趋近于0；<br>而根据高数中无穷大的理解，分母无限趋近于0，分子为常数，会得到无穷大。<br>&emsp;Java中有一个特殊值：Infinity，它的意思就是正无穷大，同理-Infinity表示负无穷小。</p>
+System.out.println(a / b);</code></pre><h3 id="这段代码运行结果如下："><a href="#这段代码运行结果如下：" class="headerlink" title="这段代码运行结果如下："></a>这段代码运行结果如下：</h3><pre><code>Infinity</code></pre><h3 id="原因："><a href="#原因：" class="headerlink" title="原因："></a>原因：</h3><p>&emsp;浮点型是不精确的，所以0.00并不等于0，是无限趋近于0；<br>而根据高数中无穷大的理解，分母无限趋近于0，分子为常数，会得到无穷大。<br>&emsp;Java中有一个特殊值：Infinity，它的意思就是正无穷大，同理-Infinity表示负无穷小。</p>
 
     </div>
 
@@ -353,6 +386,9 @@ System.out.println(a / b);</code></pre><h3 id="这段代码运行结果如下：
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/header.jpg"
+      alt="阁隆">
   <p class="site-author-name" itemprop="name">阁隆</p>
   <div class="site-description" itemprop="description">技术博客，Java，Golang，数据结构，算法</div>
 </div>
@@ -416,7 +452,7 @@ System.out.println(a / b);</code></pre><h3 id="这段代码运行结果如下：
 </div>
   <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.4.0</div>
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.0</div>
 
         
 
@@ -443,7 +479,8 @@ System.out.println(a / b);</code></pre><h3 id="这段代码运行结果如下：
   <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
   <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
 <script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
-<script src="/js/schemes/muse.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+
 <script src="/js/next-boot.js?v=7.4.0"></script>
 
 
