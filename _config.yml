@@ -8,7 +8,7 @@ subtitle: 阁隆的技术博客
 description: 技术博客，Java，Golang，数据结构，算法
 keywords:
 author: 阁隆
-language:
+language: zh-CN
 timezone:
 
 # URL
@@ -41,7 +41,7 @@ future: true
 highlight:
   enable: true
   line_number: true
-  auto_detect: false
+  auto_detect: true
   tab_replace:
   
 # Home page setting
