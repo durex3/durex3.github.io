@@ -47,27 +47,27 @@
     path: '',
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     translation: {
-      copy_button: 'Copy',
-      copy_success: 'Copied',
-      copy_failure: 'Copy failed'
+      copy_button: 'Kopieren',
+      copy_success: 'Kopiert',
+      copy_failure: 'Kopieren fehlgeschlagen'
     },
     sidebarPadding: 40
   };
 </script>
 
-  <meta name="description" content="描述：通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。 快速排序递归的将子数组arr[left, right]排序，一般是取arr[left]作为切分元素，这个元素就是那个将要被排序的元素，然后调用partition()方法将arr[left]放到">
+  <meta name="description" content="描述：&amp;emsp;通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。 &amp;emsp;快速排序递归的将子数组arr[left, right]排序，一般是取arr[left]作为切分元素，这个元素就是那个将要被排序的元素，然后调用partition()方法">
 <meta name="keywords" content="Java,排序">
 <meta property="og:type" content="article">
 <meta property="og:title" content="快速排序">
 <meta property="og:url" content="https://durex3.github.io/2019/09/17/快速排序/index.html">
 <meta property="og:site_name" content="阁隆的博客">
-<meta property="og:description" content="描述：通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。 快速排序递归的将子数组arr[left, right]排序，一般是取arr[left]作为切分元素，这个元素就是那个将要被排序的元素，然后调用partition()方法将arr[left]放到">
+<meta property="og:description" content="描述：&amp;emsp;通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。 &amp;emsp;快速排序递归的将子数组arr[left, right]排序，一般是取arr[left]作为切分元素，这个元素就是那个将要被排序的元素，然后调用partition()方法">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/b1bbb565gy1g72y7j4vjkj207305b0sr.jpg">
-<meta property="og:updated_time" content="2019-09-17T16:08:16.137Z">
+<meta property="og:updated_time" content="2019-09-18T05:33:18.012Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="快速排序">
-<meta name="twitter:description" content="描述：通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。 快速排序递归的将子数组arr[left, right]排序，一般是取arr[left]作为切分元素，这个元素就是那个将要被排序的元素，然后调用partition()方法将arr[left]放到">
+<meta name="twitter:description" content="描述：&amp;emsp;通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。 &amp;emsp;快速排序递归的将子数组arr[left, right]排序，一般是取arr[left]作为切分元素，这个元素就是那个将要被排序的元素，然后调用partition()方法">
 <meta name="twitter:image" content="http://ww1.sinaimg.cn/large/b1bbb565gy1g72y7j4vjkj207305b0sr.jpg">
   <link rel="canonical" href="https://durex3.github.io/2019/09/17/快速排序/">
 
@@ -139,7 +139,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Toggle navigation bar">
+    <button aria-label="Navigationsleiste an/ausschalten">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -159,7 +159,7 @@
       
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
 
   </li>
       
@@ -170,7 +170,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
 
   </li>
   </ul>
@@ -222,13 +222,13 @@
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
 
               
                 
               
 
-              <time title="Created: 2019-09-17 21:46:41" itemprop="dateCreated datePublished" datetime="2019-09-17T21:46:41+08:00">2019-09-17</time>
+              <time title="Erstellt: 2019-09-17 21:46:41" itemprop="dateCreated datePublished" datetime="2019-09-17T21:46:41+08:00">2019-09-17</time>
             </span>
           
             
@@ -238,8 +238,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-09-18 00:08:16" itemprop="dateModified" datetime="2019-09-18T00:08:16+08:00">2019-09-18</time>
+                <span class="post-meta-item-text">Bearbeitet am</span>
+                <time title="Geändert am: 2019-09-18 13:33:18" itemprop="dateModified" datetime="2019-09-18T13:33:18+08:00">2019-09-18</time>
               </span>
             
           
@@ -247,7 +247,7 @@
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              <span class="post-meta-item-text">In</span>
+              <span class="post-meta-item-text">in</span>
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/排序/" itemprop="url" rel="index"><span itemprop="name">排序</span></a></span>
 
@@ -268,8 +268,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="描述："><a href="#描述：" class="headerlink" title="描述："></a>描述：</h2><p>通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。</p>
-<p>快速排序递归的将子数组arr[left, right]排序，一般是取arr[left]作为切分元素，这个元素就是那个将要被排序的元素，然后调用partition()方法将arr[left]放到一个合适的位置，然后再递归重复上面的过程。所以该方法的关键在于切分。</p>
+        <h2 id="描述："><a href="#描述：" class="headerlink" title="描述："></a>描述：</h2><p>&emsp;通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。</p>
+<p>&emsp;快速排序递归的将子数组arr[left, right]排序，一般是取arr[left]作为切分元素，这个元素就是那个将要被排序的元素，然后调用partition()方法将arr[left]放到一个合适的位置，然后再递归重复上面的过程。所以该方法的关键在于切分。</p>
 <h2 id="切分方法partition-："><a href="#切分方法partition-：" class="headerlink" title="切分方法partition()："></a>切分方法partition()：</h2><ol>
 <li><p>变量j记录最后一个小于arr[left]的元素的下标，</p>
 </li>
@@ -277,12 +277,12 @@
 </li>
 <li><p>如果遍历过程中arr[i] &lt; arr[start]，则让arr[i]和arr[j + 1]进行交换，然后让j++使得arr[left] &gt; arr[start + 1, j]和arr[left] &lt; a[j + 1, i]；如果arr[i] &gt; arr[start]则不用做任何操作继续遍历。</p>
 </li>
-<li><p>遍历结束后数组arr的元素就会变成：arr[start + 1, j] &lt; arr[left]和a[j + 1, right] &gt; arr[left]。此时再把arr[start]和arr[j]进行交换之后，数组元素就会变成：arr[start, j] &lt; arr[j]和arr[j] &lt; a[j + 1, right]。这个时候元素arr[left]已经排好了序。</p>
+<li><p>遍历结束后数组arr的元素就会变成：arr[start + 1, j] &lt; arr[left]和a[j + 1, right] &gt; arr[left]。此时再把arr[start]和arr[j]进行交换之后，数组元素就会变成：arr[start, j] &lt; arr[j]和arr[j] &lt; arr[j + 1, right]。这个时候元素arr[left]已经排好了序。</p>
 </li>
 <li><p>最后把排序好的元素arr[left]所在的下标j返回出去。</p>
 </li>
 </ol>
-<p>如图：</p>
+<p>&emsp;如图：</p>
 <p><img src="http://ww1.sinaimg.cn/large/b1bbb565gy1g72y7j4vjkj207305b0sr.jpg" alt="quick_sort.png"></p>
 <h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><pre><code>import java.util.Arrays;
 
@@ -372,6 +372,10 @@ public class QuickSort {
 
             <div class="post-nav-prev post-nav-item">
               
+                <a href="/2019/09/18/关于Java中的无穷大/" rel="prev" title="关于Java中的无穷大">
+                  关于Java中的无穷大 <i class="fa fa-chevron-right"></i>
+                </a>
+              
             </div>
           </div>
         
@@ -410,10 +414,10 @@ public class QuickSort {
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          Table of Contents
+          Inhaltsverzeichnis
         </li>
         <li class="sidebar-nav-overview">
-          Overview
+          Übersicht
         </li>
       </ul>
 
@@ -434,8 +438,8 @@ public class QuickSort {
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
-          <span class="site-state-item-name">posts</span>
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">Artikel</span>
         </a>
       </div>
     
@@ -447,8 +451,8 @@ public class QuickSort {
             <a href="/categories/">
           
         
-        <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">categories</span>
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">Kategorien</span>
         </a>
       </div>
     
@@ -456,8 +460,8 @@ public class QuickSort {
       
       <div class="site-state-item site-state-tags">
         
-        <span class="site-state-item-count">2</span>
-        <span class="site-state-item-name">tags</span>
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">schlagwörter</span>
         
       </div>
     
@@ -483,9 +487,9 @@ public class QuickSort {
   </span>
   <span class="author" itemprop="copyrightHolder">阁隆</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.4.0</div>
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.4.0</div>
 
         
 
