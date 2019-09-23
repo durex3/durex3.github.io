@@ -55,19 +55,22 @@
   };
 </script>
 
-  <meta name="description" content="最近笔试遇到一道题，没有做出来">
-<meta name="keywords" content="Java,Infinity">
+  <meta name="description" content="引言&amp;emsp;在要排序的一组数中，假定前n-1个数已经排好序，现在将第n个数插到前面的有序数列中，使得这n个数也是排好顺序的。如此反复循环，直到全部排好顺序。">
+<meta name="keywords" content="Java,排序">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于Java中的无穷大">
-<meta property="og:url" content="https://durex3.github.io/2019/09/18/关于Java中的无穷大/index.html">
+<meta property="og:title" content="插入排序">
+<meta property="og:url" content="https://durex3.github.io/2019/09/23/插入排序/index.html">
 <meta property="og:site_name" content="阁隆的博客">
-<meta property="og:description" content="最近笔试遇到一道题，没有做出来">
+<meta property="og:description" content="引言&amp;emsp;在要排序的一组数中，假定前n-1个数已经排好序，现在将第n个数插到前面的有序数列中，使得这n个数也是排好顺序的。如此反复循环，直到全部排好顺序。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-18T07:33:28.309Z">
+<meta property="og:image" content="https://www.runoob.com/wp-content/uploads/2015/09/22402">
+<meta property="og:image" content="https://www.runoob.com/wp-content/uploads/2015/09/33403">
+<meta property="og:updated_time" content="2019-09-23T13:54:42.399Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于Java中的无穷大">
-<meta name="twitter:description" content="最近笔试遇到一道题，没有做出来">
-  <link rel="canonical" href="https://durex3.github.io/2019/09/18/关于Java中的无穷大/">
+<meta name="twitter:title" content="插入排序">
+<meta name="twitter:description" content="引言&amp;emsp;在要排序的一组数中，假定前n-1个数已经排好序，现在将第n个数插到前面的有序数列中，使得这n个数也是排好顺序的。如此反复循环，直到全部排好顺序。">
+<meta name="twitter:image" content="https://www.runoob.com/wp-content/uploads/2015/09/22402">
+  <link rel="canonical" href="https://durex3.github.io/2019/09/23/插入排序/">
 
 
 <script id="page-configurations">
@@ -81,7 +84,7 @@
   };
 </script>
 
-  <title>关于Java中的无穷大 | 阁隆的博客</title>
+  <title>插入排序 | 阁隆的博客</title>
   
 
 
@@ -220,7 +223,7 @@
   
   
   <div class="post-block post">
-    <link itemprop="mainEntityOfPage" href="https://durex3.github.io/2019/09/18/关于Java中的无穷大/">
+    <link itemprop="mainEntityOfPage" href="https://durex3.github.io/2019/09/23/插入排序/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="阁隆">
@@ -232,7 +235,7 @@
       <meta itemprop="name" content="阁隆的博客">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">关于Java中的无穷大
+        <h1 class="post-title" itemprop="name headline">插入排序
 
           
         </h1>
@@ -248,7 +251,7 @@
                 
               
 
-              <time title="创建时间：2019-09-18 13:11:50 / 修改时间：15:33:28" itemprop="dateCreated datePublished" datetime="2019-09-18T13:11:50+08:00">2019-09-18</time>
+              <time title="创建时间：2019-09-23 21:10:04 / 修改时间：21:54:42" itemprop="dateCreated datePublished" datetime="2019-09-23T21:10:04+08:00">2019-09-23</time>
             </span>
           
             
@@ -261,7 +264,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/排序/" itemprop="url" rel="index"><span itemprop="name">排序</span></a></span>
 
                 
                 
@@ -280,14 +283,26 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>最近笔试遇到一道题，没有做出来</p>
+        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>&emsp;在要排序的一组数中，假定前n-1个数已经排好序，现在将第n个数插到前面的有序数列中，使得这n个数也是排好顺序的。如此反复循环，直到全部排好顺序。</p>
 <a id="more"></a>
+<h2 id="1-基本思想"><a href="#1-基本思想" class="headerlink" title="1. 基本思想"></a>1. 基本思想</h2><p>&emsp;每一趟将一个待排序的记录，按其关键字的大小插入到已经排好序的一组记录的适当位置上，直到所有待排序记录全部插入为止。<br>&emsp;插入排序的工作方式非常像人们排序一手扑克牌一样。开始时，我们的左手为空并且桌子上的牌面朝下。然后，我们每次从桌子上拿走一张牌并将它插入左手中正确的位置。为了找到一张牌的正确位置，我们从右到左将它与已在手中的每张牌进行比较，如下图1-1所示（图片来源于菜鸟教程）：</p>
+<div align="center"><img src="https://www.runoob.com/wp-content/uploads/2015/09/22402"></div>
+<center>图 1-1 打扑克牌</center>  
+## 2. 算法步骤     
+&emsp;待排序记录 R1，R2，... ，Rn–1， Rn  
+&emsp;i = 0： R1  
+&emsp;i = 1：（R1），R2  
+&emsp;i = 2：（R1，R2）， R3  
+&emsp;...  
+&emsp;i = j：（R1，R2，... ，Rj–1）， Rj  
+&emsp;...  
+&emsp;i = n: （R1，R2，... ，Rn–1）， Rn  
+&emsp;可以用一张图来理解一下上面的算法步骤，如图2-1（图片来源于菜鸟教程）：
+<div align="center"><img src="https://www.runoob.com/wp-content/uploads/2015/09/33403"></div>
+<center>图 2-1 算法步骤</center>  
+## 3. 代码实现
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 插入排序</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> gelong</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2019/9/15 21:31</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InsertSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 插入排序</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> arr 数组</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">insertSort</span><span class="params">(<span class="keyword">int</span> []arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> j = i - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">int</span> key = arr[i];</span><br><span class="line">            <span class="keyword">while</span> (j &gt;= <span class="number">0</span> &amp;&amp; key &lt; arr[j]) &#123;</span><br><span class="line">                arr[j + <span class="number">1</span>] = arr[j];</span><br><span class="line">                j--;</span><br><span class="line">            &#125;</span><br><span class="line">            arr[j + <span class="number">1</span>] = key;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> []arr = &#123;<span class="number">3</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">2</span>&#125;;</span><br><span class="line">        InsertSort.insertSort(arr);</span><br><span class="line">        System.out.println(Arrays.toString(arr));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="题目内容如下："><a href="#题目内容如下：" class="headerlink" title="题目内容如下："></a>题目内容如下：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> a = <span class="number">60.00</span>;</span><br><span class="line"><span class="keyword">double</span> b = <span class="number">0.00</span>;</span><br><span class="line">System.out.println(a / b);</span><br></pre></td></tr></table></figure>
-
-<h3 id="这段代码运行结果如下："><a href="#这段代码运行结果如下：" class="headerlink" title="这段代码运行结果如下："></a>这段代码运行结果如下：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Infinity</span><br></pre></td></tr></table></figure>
-
-<h3 id="原因："><a href="#原因：" class="headerlink" title="原因："></a>原因：</h3><p>&emsp;浮点型是不精确的，所以0.00并不等于0，是无限趋近于0。而根据高数中无穷大的理解，分母无限趋近于0，分子为常数，会得到无穷大。<br>&emsp;Java中有一个特殊值：Infinity，它的意思就是正无穷大，同理-Infinity表示负无穷小。</p>
 
     </div>
 
@@ -305,7 +320,7 @@
             
               <a href="/tags/Java/" rel="tag"># Java</a>
             
-              <a href="/tags/Infinity/" rel="tag"># Infinity</a>
+              <a href="/tags/排序/" rel="tag"># 排序</a>
             
           </div>
         
@@ -315,8 +330,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019/09/17/快速排序/" rel="next" title="快速排序">
-                  <i class="fa fa-chevron-left"></i> 快速排序
+                <a href="/2019/09/19/你了解Spring-IOC吗/" rel="next" title="你了解Spring IOC吗">
+                  <i class="fa fa-chevron-left"></i> 你了解Spring IOC吗
                 </a>
               
             </div>
@@ -324,10 +339,6 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2019/09/19/你了解Spring-IOC吗/" rel="prev" title="你了解Spring IOC吗">
-                  你了解Spring IOC吗 <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -376,7 +387,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目内容如下："><span class="nav-number">1.</span> <span class="nav-text">题目内容如下：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#这段代码运行结果如下："><span class="nav-number">2.</span> <span class="nav-text">这段代码运行结果如下：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原因："><span class="nav-number">3.</span> <span class="nav-text">原因：</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-基本思想"><span class="nav-number">2.</span> <span class="nav-text">1. 基本思想</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
