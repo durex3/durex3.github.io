@@ -55,19 +55,21 @@
   };
 </script>
 
-  <meta name="description" content="我的第一篇博客这是我的一个技术博客，会记录一些博客内容。">
-<meta name="keywords" content="Java">
+  <meta name="description" content="&amp;emsp;Java多线程的实现方式到底有几种？网上和书籍中的说法鱼龙混杂，其实多线程的实现方式只有两种，分别是继承Thread类与实现Runnable接口。oracle官方文档也明确了实现多线程的方式只有两种。 &amp;emsp;如图：">
+<meta name="keywords" content="Java,多线程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="我的第一篇博客">
-<meta property="og:url" content="https://durex3.github.io/2019/09/17/我的第一篇博客/index.html">
+<meta property="og:title" content="究竟如何创建新线程">
+<meta property="og:url" content="https://durex3.github.io/2020/05/30/究竟如何创建新线程/index.html">
 <meta property="og:site_name" content="阁隆的博客">
-<meta property="og:description" content="我的第一篇博客这是我的一个技术博客，会记录一些博客内容。">
+<meta property="og:description" content="&amp;emsp;Java多线程的实现方式到底有几种？网上和书籍中的说法鱼龙混杂，其实多线程的实现方式只有两种，分别是继承Thread类与实现Runnable接口。oracle官方文档也明确了实现多线程的方式只有两种。 &amp;emsp;如图：">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-17T12:01:17.065Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/b1bbb565gy1gf9s9s5mq8j21gt0r3q7d.jpg">
+<meta property="og:updated_time" content="2020-05-29T16:26:52.861Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="我的第一篇博客">
-<meta name="twitter:description" content="我的第一篇博客这是我的一个技术博客，会记录一些博客内容。">
-  <link rel="canonical" href="https://durex3.github.io/2019/09/17/我的第一篇博客/">
+<meta name="twitter:title" content="究竟如何创建新线程">
+<meta name="twitter:description" content="&amp;emsp;Java多线程的实现方式到底有几种？网上和书籍中的说法鱼龙混杂，其实多线程的实现方式只有两种，分别是继承Thread类与实现Runnable接口。oracle官方文档也明确了实现多线程的方式只有两种。 &amp;emsp;如图：">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/b1bbb565gy1gf9s9s5mq8j21gt0r3q7d.jpg">
+  <link rel="canonical" href="https://durex3.github.io/2020/05/30/究竟如何创建新线程/">
 
 
 <script id="page-configurations">
@@ -81,7 +83,7 @@
   };
 </script>
 
-  <title>我的第一篇博客 | 阁隆的博客</title>
+  <title>究竟如何创建新线程 | 阁隆的博客</title>
   
 
 
@@ -220,7 +222,7 @@
   
   
   <div class="post-block post">
-    <link itemprop="mainEntityOfPage" href="https://durex3.github.io/2019/09/17/我的第一篇博客/">
+    <link itemprop="mainEntityOfPage" href="https://durex3.github.io/2020/05/30/究竟如何创建新线程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="阁隆">
@@ -232,7 +234,7 @@
       <meta itemprop="name" content="阁隆的博客">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">我的第一篇博客
+        <h1 class="post-title" itemprop="name headline">究竟如何创建新线程
 
           
         </h1>
@@ -248,12 +250,25 @@
                 
               
 
-              <time title="创建时间：2019-09-17 19:53:50 / 修改时间：20:01:17" itemprop="dateCreated datePublished" datetime="2019-09-17T19:53:50+08:00">2019-09-17</time>
+              <time title="创建时间：2020-05-30 00:01:04 / 修改时间：00:26:52" itemprop="dateCreated datePublished" datetime="2020-05-30T00:01:04+08:00">2020-05-30</time>
             </span>
           
             
 
             
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/多线程/" itemprop="url" rel="index"><span itemprop="name">多线程</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -267,7 +282,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="我的第一篇博客"><a href="#我的第一篇博客" class="headerlink" title="我的第一篇博客"></a>我的第一篇博客</h2><p>这是我的一个技术博客，会记录一些博客内容。</p>
+        <p>&emsp;Java多线程的实现方式到底有几种？网上和书籍中的说法鱼龙混杂，其实多线程的实现方式只有两种，分别是继承Thread类与实现Runnable接口。oracle官方文档也明确了实现多线程的方式只有两种。</p>
+<p>&emsp;如图：</p>
+<p><img src="http://ww1.sinaimg.cn/large/b1bbb565gy1gf9s9s5mq8j21gt0r3q7d.jpg" alt="thead.jpg"></p>
+<a id="more"></a>
 
     </div>
 
@@ -285,6 +303,8 @@
             
               <a href="/tags/Java/" rel="tag"># Java</a>
             
+              <a href="/tags/多线程/" rel="tag"># 多线程</a>
+            
           </div>
         
 
@@ -293,15 +313,15 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
+                <a href="/2019/09/23/插入排序/" rel="next" title="插入排序">
+                  <i class="fa fa-chevron-left"></i> 插入排序
+                </a>
+              
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2019/09/17/快速排序/" rel="prev" title="快速排序">
-                  快速排序 <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -350,8 +370,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#我的第一篇博客"><span class="nav-number">1.</span> <span class="nav-text">我的第一篇博客</span></a></li></ol></div>
-        
       </div>
       <!--/noindex-->
 
