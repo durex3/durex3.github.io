@@ -13,12 +13,12 @@ tags:
 ## 1. IOC是什么
 IOC（Inversion of Control），即”控制反转”，不是什么技术，而是一种设计思想，是Spring core最核心的部分。IOC使你从繁琐的对象交互中解脱出来，进而专注与对象本身，更近一步突出面向对象。要了解IOC需要先了解软件设计的一个重要思想--依赖注入（Dependency Injection）。
 ## 2. DI举例
-&emsp;假如我们要设计一个行李箱，如图2-1：
+假如我们要设计一个行李箱，如图2-1：
 <div align=center><img src="http://ww1.sinaimg.cn/large/b1bbb565ly1g757454au1j20kq03aweh.jpg"></div>
 <center>图 2-1 行李箱依赖关系</center>
 
 这些对象之间存在一条链式的依赖关系，假如轮子的尺寸一改，那么依赖它的底盘也得改，底盘一改那么箱体也得改，同理行李箱也得改。这么一看所有的设计都得改，真是要了老命了。
-&emsp;为了更加形象地表面，下面用代码来进行说明如图2-2：
+为了更加形象地表面，下面用代码来进行说明如图2-2：
 <div align=center><img src="http://ww1.sinaimg.cn/large/b1bbb565ly1g758sq1bcxj217w0kiq3r.jpg"></div>
 <center>图 2-2 行李箱依赖关系伪代码</center>
 
