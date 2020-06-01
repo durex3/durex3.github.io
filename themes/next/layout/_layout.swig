@@ -69,6 +69,7 @@
   {% include '_third-party/math/index.swig' %}
   {% include '_third-party/quicklink.swig' %}
   {% include '_third-party/vkontakte-api.swig' %}
+  {% include '_third-party/copy-code.swig' %}
 
   {{- next_inject('bodyEnd') }}
 
