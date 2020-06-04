@@ -55,25 +55,22 @@
   };
 </script>
 
-  <meta name="description" content="我们都知道Java多线程的实质是调用Thread类的run()方法，每次我们开启新线程都得调用start()方法，那我们能不能直接调用run()方法进行启动线程呢？">
+  <meta name="description" content="要使任务和线程能安全、快速、可靠地停止下来,并不是一件容易的事。Java没有提供任何机制来安全地终止线程。但它提供了中断( Interruption),这是一种协作机制,能够使一个线程终止另一个线程的当前工作。">
 <meta name="keywords" content="Java,多线程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="启动线程的正确姿势">
-<meta property="og:url" content="https://durex3.github.io/2020/06/01/启动线程的正确姿势/index.html">
+<meta property="og:title" content="停止线程的最佳实践">
+<meta property="og:url" content="https://durex3.github.io/2020/06/03/停止线程的最佳实践/index.html">
 <meta property="og:site_name" content="阁隆的博客">
-<meta property="og:description" content="我们都知道Java多线程的实质是调用Thread类的run()方法，每次我们开启新线程都得调用start()方法，那我们能不能直接调用run()方法进行启动线程呢？">
+<meta property="og:description" content="要使任务和线程能安全、快速、可靠地停止下来,并不是一件容易的事。Java没有提供任何机制来安全地终止线程。但它提供了中断( Interruption),这是一种协作机制,能够使一个线程终止另一个线程的当前工作。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://ww1.sinaimg.cn/large/b1bbb565gy1gfd6p154b2j20gz04c3yh.jpg">
-<meta property="og:image" content="http://ww1.sinaimg.cn/large/b1bbb565gy1gfd70su4nvj20sj05hmxg.jpg">
-<meta property="og:image" content="http://ww1.sinaimg.cn/large/b1bbb565gy1gfd75n8apjj20rm0kbta8.jpg">
-<meta property="og:image" content="http://ww1.sinaimg.cn/large/b1bbb565gy1gfd7agmpbxj20oh07jq3d.jpg">
-<meta property="og:image" content="http://ww1.sinaimg.cn/large/b1bbb565gy1gfd7jbkpntj20bf05taa1.jpg">
-<meta property="og:updated_time" content="2020-06-01T15:34:36.897Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/b1bbb565gy1gffibei9fzj20e0084mxh.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/b1bbb565gy1gffiw2j2u4j213z06b0ta.jpg">
+<meta property="og:updated_time" content="2020-06-03T15:44:06.360Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="启动线程的正确姿势">
-<meta name="twitter:description" content="我们都知道Java多线程的实质是调用Thread类的run()方法，每次我们开启新线程都得调用start()方法，那我们能不能直接调用run()方法进行启动线程呢？">
-<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/b1bbb565gy1gfd6p154b2j20gz04c3yh.jpg">
-  <link rel="canonical" href="https://durex3.github.io/2020/06/01/启动线程的正确姿势/">
+<meta name="twitter:title" content="停止线程的最佳实践">
+<meta name="twitter:description" content="要使任务和线程能安全、快速、可靠地停止下来,并不是一件容易的事。Java没有提供任何机制来安全地终止线程。但它提供了中断( Interruption),这是一种协作机制,能够使一个线程终止另一个线程的当前工作。">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/b1bbb565gy1gffibei9fzj20e0084mxh.jpg">
+  <link rel="canonical" href="https://durex3.github.io/2020/06/03/停止线程的最佳实践/">
 
 
 <script id="page-configurations">
@@ -87,7 +84,7 @@
   };
 </script>
 
-  <title>启动线程的正确姿势 | 阁隆的博客</title>
+  <title>停止线程的最佳实践 | 阁隆的博客</title>
   
 
 
@@ -226,7 +223,7 @@
   
   
   <div class="post-block post">
-    <link itemprop="mainEntityOfPage" href="https://durex3.github.io/2020/06/01/启动线程的正确姿势/">
+    <link itemprop="mainEntityOfPage" href="https://durex3.github.io/2020/06/03/停止线程的最佳实践/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="阁隆">
@@ -238,7 +235,7 @@
       <meta itemprop="name" content="阁隆的博客">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">启动线程的正确姿势
+        <h1 class="post-title" itemprop="name headline">停止线程的最佳实践
 
           
         </h1>
@@ -254,7 +251,7 @@
                 
               
 
-              <time title="创建时间：2020-06-01 22:06:57 / 修改时间：23:34:36" itemprop="dateCreated datePublished" datetime="2020-06-01T22:06:57+08:00">2020-06-01</time>
+              <time title="创建时间：2020-06-03 22:20:29 / 修改时间：23:44:06" itemprop="dateCreated datePublished" datetime="2020-06-03T22:20:29+08:00">2020-06-03</time>
             </span>
           
             
@@ -286,31 +283,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>我们都知道Java多线程的实质是调用Thread类的run()方法，每次我们开启新线程都得调用start()方法，那我们能不能直接调用run()方法进行启动线程呢？</p>
+        <p>要使任务和线程能安全、快速、可靠地停止下来,并不是一件容易的事。Java没有提供任何机制来安全地终止线程。但它提供了中断( Interruption),这是一种协作机制,能够使一个线程终止另一个线程的当前工作。</p>
 <a id="more"></a>
+<p>在Java中，最好的停止线程的方式是使用中断interrupt，但是这仅仅是会通知到被终止的线程“你该停止运行了”，被终止的线程自身拥有决定权（决定是否、以及何时停止），这依赖于请求停止方和被停止方都遵守一种约定好的编码规范。</p>
+<h2 id="1-通常情况下的停止线程"><a href="#1-通常情况下的停止线程" class="headerlink" title="1. 通常情况下的停止线程"></a>1. 通常情况下的停止线程</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * run方法内没有sleep或者wait方法时，停止线程</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> gelong</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/6/3 22:16</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RightWayStopThreadWithoutSleep</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        Thread thread = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> (!Thread.currentThread().isInterrupted() &amp;&amp; num &lt;= Integer.MAX_VALUE / <span class="number">2</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (num % <span class="number">10000</span> == <span class="number">0</span>) &#123;</span><br><span class="line">                    System.out.println(num + <span class="string">"是10000的倍数"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                num++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        thread.start();</span><br><span class="line">        Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">        thread.interrupt();</span><br><span class="line">        System.out.println(<span class="string">"任务结束了"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="1-start-和run-的比较"><a href="#1-start-和run-的比较" class="headerlink" title="1. start()和run()的比较"></a>1. start()和run()的比较</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> gelong</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/6/1 21:39</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StartAndRunMethod</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Runnable runnable = () -&gt; &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName());</span><br><span class="line">        &#125;;</span><br><span class="line">        runnable.run();</span><br><span class="line">        <span class="keyword">new</span> Thread(runnable).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://ww1.sinaimg.cn/large/b1bbb565gy1gffibei9fzj20e0084mxh.jpg" alt="stopthread1.jpg"></p>
+<p>当在main线程里面调用thread.interrupt()给线程中断的信号时，isInterrupted()方法就会返回true，while条件不满足就会退出循环，此时线程就会退出了。</p>
+<h2 id="2-当线程中断遇到遇到等待状态时"><a href="#2-当线程中断遇到遇到等待状态时" class="headerlink" title="2. 当线程中断遇到遇到等待状态时"></a>2. 当线程中断遇到遇到等待状态时</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> gelong</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/6/3 23:24</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RightWayStopThreadWithSleep</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        Thread thread = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        thread.start();</span><br><span class="line">        Thread.sleep(<span class="number">500</span>);</span><br><span class="line">        thread.interrupt();</span><br><span class="line">        System.out.println(<span class="string">"任务结束了"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://ww1.sinaimg.cn/large/b1bbb565gy1gfd6p154b2j20gz04c3yh.jpg" alt="startthread.jpg"></p>
-<p>从运行结果我们可以看出使用start()方法才能创建出新线程，使用run()方法只是在main线程里面调用一个普通的方法而已。</p>
-<h2 id="2-start-方法原理解读"><a href="#2-start-方法原理解读" class="headerlink" title="2. start()方法原理解读"></a>2. start()方法原理解读</h2><p>我们先来看的一段代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> gelong</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/6/1 23:09</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CantStartTwice</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Thread thread = <span class="keyword">new</span> Thread();</span><br><span class="line">        thread.start();</span><br><span class="line">        thread.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="http://ww1.sinaimg.cn/large/b1bbb565gy1gfd70su4nvj20sj05hmxg.jpg" alt="cantstarttwice.jpg"></p>
-<p>我们调用了两次start()方法，结果抛出了线程状态不符合的异常。为什么会抛出这样的异常呢，我们来看看start()方法的源码。</p>
-<p><img src="http://ww1.sinaimg.cn/large/b1bbb565gy1gfd75n8apjj20rm0kbta8.jpg" alt="threadexception.jpg"></p>
-<p>从start()的源码我们可以看到线程刚刚new实例但是还没有启动的时候的状态未0，当线程已经调用start()方法启动线程后，线程的状态已经不为0了，此时再调用一次start()方法就会抛出异常。</p>
-<p><img src="http://ww1.sinaimg.cn/large/b1bbb565gy1gfd7agmpbxj20oh07jq3d.jpg" alt="startsource.jpg"></p>
-<p>继续分析start()方法我们会发现start方法的执行流程如下：</p>
-<ul>
-<li>检查线程状态，只有NEW状态下的线程才能继续，否则会抛出IllegalThreadStateException</li>
-<li>被加入线程组</li>
-<li>调用start0()方法启动线程</li>
-</ul>
-<p>注意点：start0()是native类型的，它的底层是c++实现的。start方法是被synchronized修饰的方法，可以保证线程安全，由JVM创建的main方法线程和system组线程，并不会通过start来启动。</p>
-<h2 id="3-run-方法原理解读"><a href="#3-run-方法原理解读" class="headerlink" title="3. run()方法原理解读"></a>3. run()方法原理解读</h2><p><img src="http://ww1.sinaimg.cn/large/b1bbb565gy1gfd7jbkpntj20bf05taa1.jpg" alt="runsource.jpg"></p>
-<p>没啥好说的了，经典三行代码。</p>
-<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4.总结"></a>4.总结</h2><p>Java启动多线程的方法是通过调用Thread类的start()方法且不能调用多次，直接调用Thread类的run()方法并不能启动线程，和我们在main里面调用类的普通方法没什么区别。</p>
+<p><img src="http://ww1.sinaimg.cn/large/b1bbb565gy1gffiw2j2u4j213z06b0ta.jpg" alt="stopthread2.jpg"></p>
+<p>当线程在等待状态时收到中断信号时，会抛出InterruptedException异常。</p>
 
     </div>
 
@@ -338,8 +321,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2020/05/30/究竟如何创建新线程/" rel="next" title="究竟如何创建新线程">
-                  <i class="fa fa-chevron-left"></i> 究竟如何创建新线程
+                <a href="/2020/06/01/启动线程的正确姿势/" rel="next" title="启动线程的正确姿势">
+                  <i class="fa fa-chevron-left"></i> 启动线程的正确姿势
                 </a>
               
             </div>
@@ -348,8 +331,8 @@
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2020/06/03/停止线程的最佳实践/" rel="prev" title="停止线程的最佳实践">
-                  停止线程的最佳实践 <i class="fa fa-chevron-right"></i>
+                <a href="/2020/06/04/冒泡排序/" rel="prev" title="冒泡排序">
+                  冒泡排序 <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
@@ -399,7 +382,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-start-和run-的比较"><span class="nav-number">1.</span> <span class="nav-text">1. start()和run()的比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-start-方法原理解读"><span class="nav-number">2.</span> <span class="nav-text">2. start()方法原理解读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-run-方法原理解读"><span class="nav-number">3.</span> <span class="nav-text">3. run()方法原理解读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-总结"><span class="nav-number">4.</span> <span class="nav-text">4.总结</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-通常情况下的停止线程"><span class="nav-number">1.</span> <span class="nav-text">1. 通常情况下的停止线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-当线程中断遇到遇到等待状态时"><span class="nav-number">2.</span> <span class="nav-text">2. 当线程中断遇到遇到等待状态时</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
