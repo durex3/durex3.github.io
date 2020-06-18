@@ -11,7 +11,7 @@ wait()、notify/notifyAll()方法是Object的final方法，无法被重写。
 
 <!-- more -->
 
-## 1. wait()、notify/notifyAll()的作用和用法
+## 1. wait()、notify()/notifyAll()的作用和用法
 
 wait()/wait(long timeout)使当前线程进入waiting、timed_waiting状态，前提是必须先获得锁，所以wait()方法的使用必须配合synchronized关键字。直到以下四种情况之一发生时，才会被唤醒：
 
@@ -22,6 +22,8 @@ wait()/wait(long timeout)使当前线程进入waiting、timed_waiting状态，�
 
 notify()方法只会唤醒等待队列其中一个线程，唤醒哪个线程取决于操作系统对多线程管理的实现。
 
+代码如下：
+
 ```java
 	
 	/**
@@ -30,7 +32,7 @@ notify()方法只会唤醒等待队列其中一个线程，唤醒哪个线程取
 	 */
 	public class Wait {
 	
-	    private final static Object object = new Object();
+	    private static final Object object = new Object();
 	
 	    static class ThreadA extends Thread {
 	        @Override
@@ -63,8 +65,8 @@ notify()方法只会唤醒等待队列其中一个线程，唤醒哪个线程取
 	        ThreadA threadA = new ThreadA();
 	        threadA.start();
 	        Thread.sleep(100);
-	        ThreadB ThreadB = new ThreadB();
-	        ThreadB.start();
+	        ThreadB threadB = new ThreadB();
+	        threadB.start();
 	    }
 	}
 ```
@@ -72,6 +74,8 @@ notify()方法只会唤醒等待队列其中一个线程，唤醒哪个线程取
 ![notify.jpg](http://ww1.sinaimg.cn/large/b1bbb565gy1gfs73a74lgj20j2081mxa.jpg)
 
 notifyAll()会唤醒所有等待的线程。
+
+代码如下：
 
 ```java
 	
@@ -81,7 +85,7 @@ notifyAll()会唤醒所有等待的线程。
 	 */
 	public class WaitNotifyAll implements Runnable {
 	
-	    private final static Object object = new Object();
+	    private static final Object object = new Object();
 	
 	    @Override
 	    public void run() {
@@ -119,6 +123,8 @@ notifyAll()会唤醒所有等待的线程。
 
 当我们把线程c的object.notifyAll()改成object.notify会导致有一个线程无法被唤醒，导致程序永远无法停止。
 
+代码如下：
+
 ```java
 
 	/**
@@ -127,7 +133,7 @@ notifyAll()会唤醒所有等待的线程。
 	 */
 	public class WaitNotifyAll implements Runnable {
 	
-	    private final static Object object = new Object();
+	    private static final Object object = new Object();
 	
 	    @Override
 	    public void run() {
@@ -166,6 +172,8 @@ notifyAll()会唤醒所有等待的线程。
 
 如果线程持有多把锁wait方法只会释放当前对象的monitor锁。
 
+代码如下：
+
 ```java
 
 	/**
@@ -174,8 +182,8 @@ notifyAll()会唤醒所有等待的线程。
 	 */
 	public class WaitNotifyReleaseOwnMonitor {
 	
-	    private final static Object resourceA = new Object();
-	    private final static Object resourceB = new Object();
+	    private static final Object resourceA = new Object();
+	    private static final Object resourceB = new Object();
 	
 	    public static void main(String[] args) throws InterruptedException {
 	        Thread threadA = new Thread(() -> {
@@ -216,6 +224,8 @@ notifyAll()会唤醒所有等待的线程。
 ## 2. wait()、notify的应用
 
 生产者消费者模式
+
+代码如下：
 
 ```java
 
@@ -310,6 +320,8 @@ notifyAll()会唤醒所有等待的线程。
 
 两个线程交替打印0-100的奇偶数。
 
+代码如下：
+
 ```java
 
 	/**
@@ -318,7 +330,7 @@ notifyAll()会唤醒所有等待的线程。
 	 */
 	public class WaitNotifyPrintOddEvenSync {
 	
-	    private final static Object lock = new Object();
+	    private static final Object lock = new Object();
 	    private static int count = 0;
 	
 	    public static void main(String[] args) {
@@ -348,6 +360,8 @@ notifyAll()会唤醒所有等待的线程。
 
 用wait、notify就可以解决上面的问题。
 
+代码如下：
+
 ```java
 
 	/**
@@ -356,7 +370,7 @@ notifyAll()会唤醒所有等待的线程。
 	 */
 	public class WaitNotifyPrintOddEvenWait {
 	
-	    private final static Object lock = new Object();
+	    private static final Object lock = new Object();
 	    private static int count = 0;
 	
 	    static class TurningRunner implements Runnable {
