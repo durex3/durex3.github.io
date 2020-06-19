@@ -20,9 +20,7 @@ wait()/wait(long timeout)使当前线程进入waiting、timed_waiting状态，�
 - 过了wait(long timeout)方法规定的时间，如果传入0就是永久等待
 - 线程自身调用了interrupt()方法被中断
 
-notify()方法只会唤醒等待队列其中一个线程，唤醒哪个线程取决于操作系统对多线程管理的实现。
-
-代码如下：
+notify()方法只会唤醒等待队列其中一个线程，唤醒哪个线程取决于操作系统对多线程管理的实现。代码如下：
 
 ```java
 	
@@ -73,9 +71,7 @@ notify()方法只会唤醒等待队列其中一个线程，唤醒哪个线程取
 
 ![notify.jpg](http://ww1.sinaimg.cn/large/b1bbb565gy1gfs73a74lgj20j2081mxa.jpg)
 
-notifyAll()会唤醒所有等待的线程。
-
-代码如下：
+notifyAll()会唤醒所有等待的线程。代码如下：
 
 ```java
 	
@@ -121,9 +117,7 @@ notifyAll()会唤醒所有等待的线程。
 
 ![notifyAll.jpg](http://ww1.sinaimg.cn/large/b1bbb565gy1gfs8jdifmwj20ip08s0t0.jpg)
 
-当我们把线程c的object.notifyAll()改成object.notify会导致有一个线程无法被唤醒，导致程序永远无法停止。
-
-代码如下：
+当我们把线程c的object.notifyAll()改成object.notify会导致有一个线程无法被唤醒，导致程序永远无法停止。代码如下：
 
 ```java
 
@@ -170,9 +164,7 @@ notifyAll()会唤醒所有等待的线程。
 
 ![notifyAll2.jpg](http://ww1.sinaimg.cn/large/b1bbb565gy1gfs8mp9dulj20il07g0sz.jpg)
 
-如果线程持有多把锁wait方法只会释放当前对象的monitor锁。
-
-代码如下：
+如果线程持有多把锁wait方法只会释放当前对象的monitor锁。代码如下：
 
 ```java
 

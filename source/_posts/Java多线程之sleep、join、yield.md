@@ -15,7 +15,7 @@ Java在多线程开发中，sleep、join、yield这三个方法用得比较多�
 
 sleep方法可以让线程进入Timed_Waiting状态，并且不占用CPU资源，但是不释放锁，直到规定时间后再执行，休眠期间如果被中断，会抛出异常并清除中断状态。
 
-sleep()不会释放monitor锁，代码如下：
+sleep()不会释放monitor锁。代码如下：
 
 ```java
 
@@ -52,7 +52,7 @@ sleep()不会释放monitor锁，代码如下：
 
 ![sleep1.jpg](http://ww1.sinaimg.cn/large/b1bbb565gy1gfvpo6e392j20ht06u3yt.jpg)
 
-sleep()也不会释放lock锁，代码如下：
+sleep()也不会释放lock锁。代码如下：
 
 ```java
 
@@ -93,9 +93,7 @@ sleep()也不会释放lock锁，代码如下：
 
 ![sleep2.jpg](http://ww1.sinaimg.cn/large/b1bbb565gy1gfvqh9sk72j20he07ujrp.jpg)
 
-sleep也可以响应中断。
-
-代码如下：
+sleep也可以响应中断。代码如下：
 
 ```java
 
@@ -145,9 +143,7 @@ wait和sleep方法的不同点：
 
 ## 2. join()的作用和用法
 
-join()方法的作用就是：因为新的线程加入了我们，所以我们要等待它执行完再出发。比如main线程里面新建了一个线程并且调用了join()方法，那么main线程就得等待这个子线程执行完毕后才能继续执行。
-
-代码如下:
+join()方法的作用就是：因为新的线程加入了我们，所以我们要等待它执行完再出发。比如main线程里面新建了一个线程并且调用了join()方法，那么main线程就得等待这个子线程执行完毕后才能继续执行。代码如下:
 
 ```java
 
@@ -186,9 +182,7 @@ join()方法的作用就是：因为新的线程加入了我们，所以我们�
 
 ![join1.jpg](http://ww1.sinaimg.cn/large/b1bbb565gy1gfwupkh5aqj20hs08sdg5.jpg)
 
-join也可以响应中断，不过不是调用join()方法的线程响应中断而是被加入的线程才能响应中断。比如线程A加入了main线程，那么就是main线程去响应中断。
-
-代码如下:
+join也可以响应中断，不过不是调用join()方法的线程响应中断而是被加入的线程才能响应中断。比如线程A加入了main线程，那么就是main线程去响应中断。代码如下:
 
 ```java
 
