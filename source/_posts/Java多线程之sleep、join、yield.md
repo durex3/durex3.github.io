@@ -7,7 +7,7 @@ tags:
 - Java
 - 多线程
 ---
-Java在多线程开发中，sleep、join、yield这三个方法用得比较多。
+Java在多线程开发中，Object类的sleep、join、yield这三个方法比较常见。
 
 <!-- more -->
 
