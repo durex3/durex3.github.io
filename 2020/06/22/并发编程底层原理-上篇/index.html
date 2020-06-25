@@ -55,21 +55,21 @@
   };
 </script>
 
-  <meta name="description" content="在要排序的一组数中，假定前n-1个数已经排好序，现在将第n个数插到前面的有序数列中，使得这n个数也是排好顺序的。如此反复循环，直到全部排好顺序。">
-<meta name="keywords" content="Java,排序">
+  <meta name="description" content="在多线程条件下，出现线程安全的问题一般是因为主内存和工作内存数据不一致性和重排序导致的，那么，理解它们的核心在于理解java内存模型(JMM)。">
+<meta name="keywords" content="Java,多线程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="插入排序">
-<meta property="og:url" content="https://durex3.github.io/2019/09/23/插入排序/index.html">
+<meta property="og:title" content="并发编程底层原理-上篇">
+<meta property="og:url" content="https://durex3.github.io/2020/06/22/并发编程底层原理-上篇/index.html">
 <meta property="og:site_name" content="顾临风的博客">
-<meta property="og:description" content="在要排序的一组数中，假定前n-1个数已经排好序，现在将第n个数插到前面的有序数列中，使得这n个数也是排好顺序的。如此反复循环，直到全部排好顺序。">
+<meta property="og:description" content="在多线程条件下，出现线程安全的问题一般是因为主内存和工作内存数据不一致性和重排序导致的，那么，理解它们的核心在于理解java内存模型(JMM)。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://images2017.cnblogs.com/blog/849589/201710/849589-20171015225645277-1151100000.gif">
-<meta property="og:updated_time" content="2020-06-04T15:15:21.747Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/b1bbb565gy1gg2no1e3jcj20o00hr0up.jpg">
+<meta property="og:updated_time" content="2020-06-25T11:15:26.440Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="插入排序">
-<meta name="twitter:description" content="在要排序的一组数中，假定前n-1个数已经排好序，现在将第n个数插到前面的有序数列中，使得这n个数也是排好顺序的。如此反复循环，直到全部排好顺序。">
-<meta name="twitter:image" content="https://images2017.cnblogs.com/blog/849589/201710/849589-20171015225645277-1151100000.gif">
-  <link rel="canonical" href="https://durex3.github.io/2019/09/23/插入排序/">
+<meta name="twitter:title" content="并发编程底层原理-上篇">
+<meta name="twitter:description" content="在多线程条件下，出现线程安全的问题一般是因为主内存和工作内存数据不一致性和重排序导致的，那么，理解它们的核心在于理解java内存模型(JMM)。">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/b1bbb565gy1gg2no1e3jcj20o00hr0up.jpg">
+  <link rel="canonical" href="https://durex3.github.io/2020/06/22/并发编程底层原理-上篇/">
 
 
 <script id="page-configurations">
@@ -83,7 +83,7 @@
   };
 </script>
 
-  <title>插入排序 | 顾临风的博客</title>
+  <title>并发编程底层原理-上篇 | 顾临风的博客</title>
   
 
 
@@ -222,7 +222,7 @@
   
   
   <div class="post-block post">
-    <link itemprop="mainEntityOfPage" href="https://durex3.github.io/2019/09/23/插入排序/">
+    <link itemprop="mainEntityOfPage" href="https://durex3.github.io/2020/06/22/并发编程底层原理-上篇/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="顾临风">
@@ -234,7 +234,7 @@
       <meta itemprop="name" content="顾临风的博客">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">插入排序
+        <h1 class="post-title" itemprop="name headline">并发编程底层原理-上篇
 
           
         </h1>
@@ -250,7 +250,7 @@
                 
               
 
-              <time title="创建时间：2019-09-23 21:10:04" itemprop="dateCreated datePublished" datetime="2019-09-23T21:10:04+08:00">2019-09-23</time>
+              <time title="创建时间：2020-06-22 23:07:11" itemprop="dateCreated datePublished" datetime="2020-06-22T23:07:11+08:00">2020-06-22</time>
             </span>
           
             
@@ -261,7 +261,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-04 23:15:21" itemprop="dateModified" datetime="2020-06-04T23:15:21+08:00">2020-06-04</time>
+                <time title="修改时间：2020-06-25 19:15:26" itemprop="dateModified" datetime="2020-06-25T19:15:26+08:00">2020-06-25</time>
               </span>
             
           
@@ -271,7 +271,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/排序/" itemprop="url" rel="index"><span itemprop="name">排序</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/多线程/" itemprop="url" rel="index"><span itemprop="name">多线程</span></a></span>
 
                 
                 
@@ -290,11 +290,45 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>在要排序的一组数中，假定前n-1个数已经排好序，现在将第n个数插到前面的有序数列中，使得这n个数也是排好顺序的。如此反复循环，直到全部排好顺序。</p>
+        <p>在多线程条件下，出现线程安全的问题一般是因为主内存和工作内存数据不一致性和重排序导致的，那么，理解它们的核心在于理解java内存模型(JMM)。</p>
 <a id="more"></a>
-<h2 id="1-基本思想"><a href="#1-基本思想" class="headerlink" title="1. 基本思想"></a>1. 基本思想</h2><p>每一趟将一个待排序的记录，按其关键字的大小插入到已经排好序的一组记录的适当位置上，直到所有待排序记录全部插入为止。插入排序的工作方式非常像人们排序一手扑克牌一样。开始时，我们的左手为空并且桌子上的牌面朝下。然后，我们每次从桌子上拿走一张牌并将它插入左手中正确的位置。为了找到一张牌的正确位置，我们从右到左将它与已在手中的每张牌进行比较，动态图如下(来源：<a href="https://www.cnblogs.com/onepixel/articles/7674659.html" target="_blank" rel="noopener">https://www.cnblogs.com/onepixel/articles/7674659.html</a>)：</p>
-<p><img src="https://images2017.cnblogs.com/blog/849589/201710/849589-20171015225645277-1151100000.gif" alt="stopthread2.jpg"></p>
-<h2 id="2-代码实现"><a href="#2-代码实现" class="headerlink" title="2. 代码实现"></a>2. 代码实现</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.Comparator;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> gelong</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/6/4 22:55</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InsertionSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">InsertionSort</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] data, Comparator&lt;T&gt; comparator)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; data.length; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> j;</span><br><span class="line">            T temp = data[i];</span><br><span class="line">            <span class="keyword">for</span> (j = i; j &gt; <span class="number">0</span> &amp;&amp; comparator.compare(data[j - <span class="number">1</span>], temp) &gt; <span class="number">0</span>; j--) &#123;</span><br><span class="line">                data[j] = data[j - <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            data[j] = temp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Integer[] data = &#123;<span class="number">3</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">4</span>&#125;;</span><br><span class="line">        sort(data, Integer::compareTo);</span><br><span class="line">        System.out.println(Arrays.toString(data));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-JMM"><a href="#1-JMM" class="headerlink" title="1. JMM"></a>1. JMM</h2><p>JMM(Java内存模型)是一组规范，需要各个JVM的实现来遵循JMM规范，以便于开发者可以利用这些规范，更方便地开发多线程程序。如果没有这样的一个JMM内存模型来规范，那么很可能经过了不同的JVM的不同规则的重排序之后，导致不同的虚拟机上的运行结果不一样。</p>
+<p>volatile、synchronized、lock等原理都是JMM，如果没有JMM那就需要我们指定什么时候用内存栅栏等，有了JMM，我们只需要用同步工具和关键字就可以开发并发程序。JMM中最重要的三点内容是：重排序、可见性、原子性。</p>
+<h3 id="重排序"><a href="#重排序" class="headerlink" title="重排序"></a>重排序</h3><p>在线程内部的两行代码的实际执行顺序和代码在Java文件中的不一致，代码指令并不是严格按照代码语句顺序执行的，它们的顺序被改变了，这就是重排序。比如：</p>
+<pre><code>int a = 1;
+int b = 2;</code></pre><p>你可能会认为，这两行代码的执行顺序就如写代码的顺序一样，实际上是不一定的。java语言是允许重排序的，所以代码的执行顺序可能是先给b赋值。</p>
+<pre><code>int a = 1;
+int b = a;</code></pre><p>像上面这种b对a有数据依赖的，是不会被重排序的，执行顺序必然是a在b之前。</p>
+<p>重排序的三种情况分别是：</p>
+<ol>
+<li>编译器优化：编译器（包括JVM，JIT编译器等）出于优化的目的（例如当前有了数据a，那么如果把对a的操作放到一起效率会更高，避免了读取b后又返回来重新读取a的时间开销），在编译的过程中会进行一定程度的重排，导致生成的机器指令和之前的字节码的顺序不一致。</li>
+<li>指令重排序：CPU 的优化行为，和编译器优化很类似，是通过乱序执行的技术，来提高执行效率。所以就算编译器不发生重排，CPU 也可能对指令进行重排，所以我们开发中，一定要考虑到重排序带来的后果。</li>
+<li>内存的“重排序”：内存系统内不存在重排序，但是内存会带来看上去和重排序一样的效果，所以这里的“重排序”打了双引号。由于内存有缓存的存在，在JMM里表现为主存和本地内存，由于主存和本地内存的不一致，会使得程序表现出乱序的行为。</li>
+</ol>
+<h3 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h3><p>JMM有以下规定:</p>
+<ol>
+<li>所有的变量都存储在主内存中，同时每个线程也有自己独立的工作内存，工作内存中的变量内容是主内存中的拷贝。</li>
+<li>线程不能直接读写主内存中的变量，而是只能操作自己工作内存中的变量，然后再同步到主内存中。</li>
+<li>主内存是多个线程共享的，但线程间不共享工作内存，如果线程间需要通信，必须借助主内存中转来完成。</li>
+</ol>
+<p>所有的共享变量存在于主内存中，每个线程有自己的本地内存，而且线程读写共享数据也是通过本地内存交换的，所以才导致了可见性问题。主内存和本地内存的图示：</p>
+<p><img src="http://ww1.sinaimg.cn/large/b1bbb565gy1gg2no1e3jcj20o00hr0up.jpg" alt="memory.jpg"></p>
+<p>Java作为高级语言，屏蔽了CPU多层缓存这些底层细节，用JMM 定义了一套读写内存数据的规范，虽然我们不再需要关心一级缓存和二级缓存的问题，但是，JMM抽象了主内存和本地内存的概念。这里说的本地内存并不是真的是一块给每个线程分配的内存，而是JMM的一个抽象，是对于寄存器、一级缓存、二级缓存等的抽象。</p>
+<h2 id="2-Happens-Before"><a href="#2-Happens-Before" class="headerlink" title="2. Happens-Before"></a>2. Happens-Before</h2><p>Happens-Before规则是用来解决可见性问题的：在时间上，动作A发生在动作B之前，B保证能看见A，这就是<br>Happens-Before。</p>
+<p>Happens-Before的八个规则：</p>
+<ol>
+<li>单线程happen-before原则：在同一个线程中，书写在前面的操作happen-before后面的操作。</li>
+<li>锁的happen-before原则：同一个锁的unlock操作happen-before此锁的lock操作。</li>
+<li>volatile的happen-before原则：对一个volatile变量的写操作happen-before对此变量的任意操作。</li>
+<li>happen-before的传递性原则：如果A操作 happen-before B操作，B操作happen-before C操作，那么A操作happen-before C操作。</li>
+<li>线程启动的happen-before原则：同一个线程的start方法happen-before此线程的其它方法。</li>
+<li>线程中断的happen-before原则：对线程interrupt方法的调用happen-before被中断线程的检测到中断发送的代码。</li>
+<li>线程终结的happen-before原则：线程中的所有操作都happen-before线程的终止检测。</li>
+<li>对象创建的happen-before原则：一个对象的初始化完成先于他的finalize方法调用。</li>
+</ol>
+<h2 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h2><p>本文介绍JMM的基本原理和Happens-Before的规则，下篇我们将介绍volatile关键字和原子性问题。</p>
+
     </div>
 
     
@@ -311,7 +345,7 @@
             
               <a href="/tags/Java/" rel="tag"># Java</a>
             
-              <a href="/tags/排序/" rel="tag"># 排序</a>
+              <a href="/tags/多线程/" rel="tag"># 多线程</a>
             
           </div>
         
@@ -321,8 +355,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019/09/19/你了解Spring-IOC吗/" rel="next" title="你了解Spring IOC吗">
-                  <i class="fa fa-chevron-left"></i> 你了解Spring IOC吗
+                <a href="/2020/06/19/Java多线程之线程安全/" rel="next" title="Java多线程之线程安全">
+                  <i class="fa fa-chevron-left"></i> Java多线程之线程安全
                 </a>
               
             </div>
@@ -330,10 +364,6 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2020/05/30/究竟如何创建新线程/" rel="prev" title="究竟如何创建新线程">
-                  究竟如何创建新线程 <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -382,7 +412,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-基本思想"><span class="nav-number">1.</span> <span class="nav-text">1. 基本思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-代码实现"><span class="nav-number">2.</span> <span class="nav-text">2. 代码实现</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-JMM"><span class="nav-number">1.</span> <span class="nav-text">1. JMM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重排序"><span class="nav-number">1.1.</span> <span class="nav-text">重排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可见性"><span class="nav-number">1.2.</span> <span class="nav-text">可见性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Happens-Before"><span class="nav-number">2.</span> <span class="nav-text">2. Happens-Before</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-总结"><span class="nav-number">3.</span> <span class="nav-text">3. 总结</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
