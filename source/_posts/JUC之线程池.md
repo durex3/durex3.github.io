@@ -23,6 +23,12 @@ tags:
 
 ## 2. 线程池的参数
 
+线程池Executor家族如下：
+
+![](http://ww1.sinaimg.cn/large/b1bbb565gy1gg9lxs6bidj20mk0j3glv.jpg)
+
+java.util.concurrent.ThreadPoolExecutor是真正意义上的线程池。所有参数如下：
+
 ```java
 
 	public ThreadPoolExecutor(int corePoolSize,
@@ -54,15 +60,11 @@ tags:
 
 ## 3.线程池的用法
 
-线程池Executor家族如下
-
-![](http://ww1.sinaimg.cn/large/b1bbb565gy1gg9lxs6bidj20mk0j3glv.jpg)
-
-java.util.concurrent.ThreadPoolExecutor是真正意义上的线程池，java.util.concurrent.Executors是一个工具类，为我们提供了构造线程池的便捷方法。Executors提供了如下的这几种常用的线程池：
+java.util.concurrent.Executors是一个工具类，为我们提供了构造线程池的便捷方法。Executors提供了如下的这几种常用的线程池：
 
 ### FixedThreadPool ###
 
-FixedThreadPool传进去的LinkedBlockingQueue是没有容量上限的，所以请求数越来越多，并且无法及时处理完毕的时候，会容易造成占用大量的内存，可能导致OOM。代码如下：
+FixedThreadPool是固定大小的线程池，传进去的LinkedBlockingQueue是没有容量上限的，所以请求数越来越多，并且无法及时处理完毕的时候，会容易造成占用大量的内存，可能导致OOM。代码如下：
 
 ```java
 
@@ -75,7 +77,7 @@ FixedThreadPool传进去的LinkedBlockingQueue是没有容量上限的，所以�
 
 ### SingleThreadExecutor ###
 
-SingleThreadExecutor和newFixedThreadPool差不多，只不过把线程数直接设置成了1，所以请求数越来越多，并且无法及时处理完毕的时候，会容易造成占用大量的内存，可能导致OOM。代码如下：
+SingleThreadExecutor和FixedThreadPool差不多，只不过把线程池中只能有一个线程，当请求数越来越多，并且无法及时处理完毕的时候，也会容易造成占用大量的内存，可能导致OOM。代码如下：
 
 ```java
 
