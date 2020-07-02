@@ -11,7 +11,7 @@ wait()、notify/notifyAll()方法是Object的final方法，无法被重写。
 
 <!-- more -->
 
-## 1. wait()、notify()/notifyAll()的作用和用法
+## wait()、notify()/notifyAll()的作用和用法
 
 wait()/wait(long timeout)使当前线程进入waiting、timed_waiting状态，前提是必须先获得锁，所以wait()方法的使用必须配合synchronized关键字。直到以下四种情况之一发生时，才会被唤醒：
 
@@ -213,7 +213,7 @@ notifyAll()会唤醒所有等待的线程。代码如下：
 由于线程0没有释放锁B所以线程1会无穷地等待锁，所以线程如果持有多把锁要主意锁的释放顺序。
 
 
-## 2. wait()、notify的应用
+## wait()、notify的应用
 
 生产者消费者模式
 

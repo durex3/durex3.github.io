@@ -11,7 +11,7 @@ Java在多线程开发中，Object类的sleep、join、yield这三个方法比�
 
 <!-- more -->
 
-## 1. sleep()的作用和用法
+## sleep()的作用和用法
 
 sleep方法可以让线程进入Timed_Waiting状态，并且不占用CPU资源，但是不释放锁，直到规定时间后再执行，休眠期间如果被中断，会抛出异常并清除中断状态。
 
@@ -141,7 +141,7 @@ wait和sleep方法的不同点：
 3. sleep()方法短暂休眠之后会主动退出阻塞，而没有指定时间的wait方法则需要被其他线程中断后才能退出阻塞。
 4. wait()、notify()/notifyAll()是Object类的方法，sleep()是Thread类的方法。
 
-## 2. join()的作用和用法
+## join()的作用和用法
 
 join()方法的作用就是：因为新的线程加入了我们，所以我们要等待它执行完再出发。比如main线程里面新建了一个线程并且调用了join()方法，那么main线程就得等待这个子线程执行完毕后才能继续执行。代码如下:
 
@@ -210,7 +210,7 @@ join也可以响应中断，不过不是调用join()方法的线程响应中断�
 ![join2.jpg](http://ww1.sinaimg.cn/large/b1bbb565gy1gfwuqy6gszj20zd0a1t9o.jpg)
 
 
-## 3. yield()的作用
+## yield()的作用
 
 yield()方法会让出当前线程CPU的时间片，使正在运行中的线程重新Runnable状态，并重新竞争CPU的调度权。它可能会获取到，也有可能被其他线程获取到。yield实际用得并不多，不过在juc工具包中用得比较多。
 

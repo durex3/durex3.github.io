@@ -11,7 +11,7 @@ tags:
 
 <!-- more -->
 
-## 1. 为什么要使用线程池
+## 为什么要使用线程池
 
 如果不使用线程池，每一个任务都新开一个线程处理，这样开销太大，我们希望有固定数量的线程，来执行一些任务，这样就避免了反复创建线程并销毁线程所带来的开销问题。使用线程池管理线程主要有如下好处：
 
@@ -21,7 +21,7 @@ tags:
 
 - 提高线程的可管理性。线程是稀缺资源，如果无限制的创建，不仅会消耗系统资源，还会降低系统的稳定性，因此，需要使用线程池来管理线程。
 
-## 2. 线程池的参数
+## 线程池的参数
 
 线程池Executor家族如下：
 
@@ -58,7 +58,7 @@ java.util.concurrent.ThreadPoolExecutor是真正意义上的线程池。所有�
 
 ![thread-add.jpg](http://ww1.sinaimg.cn/large/b1bbb565gy1gg76rfxiutj213t0igq73.jpg)
 
-## 3.线程池的用法
+## 线程池的用法
 
 java.util.concurrent.Executors是一个工具类，为我们提供了构造线程池的便捷方法。Executors提供了如下的这几种常用的线程池：
 
@@ -263,7 +263,7 @@ shutdownNow()方法也可以关闭线程池，不过这个方法比较暴力。s
 
 ![shutdownNow.jpg](http://ww1.sinaimg.cn/large/b1bbb565gy1gg8gog1abmj20m008k0t4.jpg)
 
-## 4. 线程池的状态和使用注意点
+## 线程池的状态和使用注意点
 
 线程池一共有5种状态，分别是：
 
@@ -279,6 +279,6 @@ shutdownNow()方法也可以关闭线程池，不过这个方法比较暴力。s
 - 避免线程数过度增加
 - 排查线程泄露
 
-## 5. 总结
+## 总结
 
 线程池能提高我们的效率，Java 本身提供了工具类java.util.concurrent.Executors便于我们构造线程池，但是在实际开发中我们应该根据业务使用ThreadPoolExecutor的构造方法来构造线程池。
