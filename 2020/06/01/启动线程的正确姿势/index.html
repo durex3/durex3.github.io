@@ -56,7 +56,7 @@
 </script>
 
   <meta name="description" content="我们都知道Java多线程的实质是调用Thread类的run()方法，每次我们开启新线程都得调用start()方法，那我们能不能直接调用run()方法进行启动线程呢？">
-<meta name="keywords" content="Java,多线程">
+<meta name="keywords" content="多线程,Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="启动线程的正确姿势">
 <meta property="og:url" content="https://durex3.github.io/2020/06/01/启动线程的正确姿势/index.html">
@@ -68,7 +68,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/b1bbb565gy1gfd75n8apjj20rm0kbta8.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/b1bbb565gy1gfd7agmpbxj20oh07jq3d.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/b1bbb565gy1gfd7jbkpntj20bf05taa1.jpg">
-<meta property="og:updated_time" content="2020-06-01T15:34:36.897Z">
+<meta property="og:updated_time" content="2020-07-02T14:51:02.644Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="启动线程的正确姿势">
 <meta name="twitter:description" content="我们都知道Java多线程的实质是调用Thread类的run()方法，每次我们开启新线程都得调用start()方法，那我们能不能直接调用run()方法进行启动线程呢？">
@@ -254,11 +254,19 @@
                 
               
 
-              <time title="创建时间：2020-06-01 22:06:57 / 修改时间：23:34:36" itemprop="dateCreated datePublished" datetime="2020-06-01T22:06:57+08:00">2020-06-01</time>
+              <time title="创建时间：2020-06-01 22:06:57" itemprop="dateCreated datePublished" datetime="2020-06-01T22:06:57+08:00">2020-06-01</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-02 22:51:02" itemprop="dateModified" datetime="2020-07-02T22:51:02+08:00">2020-07-02</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -289,11 +297,11 @@
         <p>我们都知道Java多线程的实质是调用Thread类的run()方法，每次我们开启新线程都得调用start()方法，那我们能不能直接调用run()方法进行启动线程呢？</p>
 <a id="more"></a>
 
-<h2 id="1-start-和run-的比较"><a href="#1-start-和run-的比较" class="headerlink" title="1. start()和run()的比较"></a>1. start()和run()的比较</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> gelong</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/6/1 21:39</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StartAndRunMethod</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Runnable runnable = () -&gt; &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName());</span><br><span class="line">        &#125;;</span><br><span class="line">        runnable.run();</span><br><span class="line">        <span class="keyword">new</span> Thread(runnable).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="start-和run-的比较"><a href="#start-和run-的比较" class="headerlink" title="start()和run()的比较"></a>start()和run()的比较</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> gelong</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/6/1 21:39</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StartAndRunMethod</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Runnable runnable = () -&gt; &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName());</span><br><span class="line">        &#125;;</span><br><span class="line">        runnable.run();</span><br><span class="line">        <span class="keyword">new</span> Thread(runnable).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><img src="http://ww1.sinaimg.cn/large/b1bbb565gy1gfd6p154b2j20gz04c3yh.jpg" alt="startthread.jpg"></p>
 <p>从运行结果我们可以看出使用start()方法才能创建出新线程，使用run()方法只是在main线程里面调用一个普通的方法而已。</p>
-<h2 id="2-start-方法原理解读"><a href="#2-start-方法原理解读" class="headerlink" title="2. start()方法原理解读"></a>2. start()方法原理解读</h2><p>我们先来看的一段代码</p>
+<h2 id="start-方法原理解读"><a href="#start-方法原理解读" class="headerlink" title="start()方法原理解读"></a>start()方法原理解读</h2><p>我们先来看的一段代码</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> gelong</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/6/1 23:09</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CantStartTwice</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Thread thread = <span class="keyword">new</span> Thread();</span><br><span class="line">        thread.start();</span><br><span class="line">        thread.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><img src="http://ww1.sinaimg.cn/large/b1bbb565gy1gfd70su4nvj20sj05hmxg.jpg" alt="cantstarttwice.jpg"></p>
@@ -308,9 +316,9 @@
 <li>调用start0()方法启动线程</li>
 </ul>
 <p>注意点：start0()是native类型的，它的底层是c++实现的。start方法是被synchronized修饰的方法，可以保证线程安全，由JVM创建的main方法线程和system组线程，并不会通过start来启动。</p>
-<h2 id="3-run-方法原理解读"><a href="#3-run-方法原理解读" class="headerlink" title="3. run()方法原理解读"></a>3. run()方法原理解读</h2><p><img src="http://ww1.sinaimg.cn/large/b1bbb565gy1gfd7jbkpntj20bf05taa1.jpg" alt="runsource.jpg"></p>
+<h2 id="run-方法原理解读"><a href="#run-方法原理解读" class="headerlink" title="run()方法原理解读"></a>run()方法原理解读</h2><p><img src="http://ww1.sinaimg.cn/large/b1bbb565gy1gfd7jbkpntj20bf05taa1.jpg" alt="runsource.jpg"></p>
 <p>没啥好说的了，经典三行代码。</p>
-<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4.总结"></a>4.总结</h2><p>Java启动多线程的方法是通过调用Thread类的start()方法且不能调用多次，直接调用Thread类的run()方法并不能启动线程，和我们在main里面调用类的普通方法没什么区别。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Java启动多线程的方法是通过调用Thread类的start()方法且不能调用多次，直接调用Thread类的run()方法并不能启动线程，和我们在main里面调用类的普通方法没什么区别。</p>
 
     </div>
 
@@ -326,9 +334,9 @@
           
           <div class="post-tags">
             
-              <a href="/tags/Java/" rel="tag"># Java</a>
-            
               <a href="/tags/多线程/" rel="tag"># 多线程</a>
+            
+              <a href="/tags/Java/" rel="tag"># Java</a>
             
           </div>
         
@@ -399,7 +407,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-start-和run-的比较"><span class="nav-number">1.</span> <span class="nav-text">1. start()和run()的比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-start-方法原理解读"><span class="nav-number">2.</span> <span class="nav-text">2. start()方法原理解读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-run-方法原理解读"><span class="nav-number">3.</span> <span class="nav-text">3. run()方法原理解读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-总结"><span class="nav-number">4.</span> <span class="nav-text">4.总结</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#start-和run-的比较"><span class="nav-number">1.</span> <span class="nav-text">start()和run()的比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#start-方法原理解读"><span class="nav-number">2.</span> <span class="nav-text">start()方法原理解读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#run-方法原理解读"><span class="nav-number">3.</span> <span class="nav-text">run()方法原理解读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -417,7 +425,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

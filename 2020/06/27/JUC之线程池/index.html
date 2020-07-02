@@ -56,7 +56,7 @@
 </script>
 
   <meta name="description" content="在实际使用中，线程是很占用系统资源的，如果对线程管理不善很容易导致系统问题。因此，在大多数并发框架中都会使用线程池来管理线程。">
-<meta name="keywords" content="多线程,JUC">
+<meta name="keywords" content="JUC,多线程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JUC之线程池">
 <meta property="og:url" content="https://durex3.github.io/2020/06/27/JUC之线程池/index.html">
@@ -68,7 +68,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/b1bbb565gy1gg8ffu210fj20jm0ftq3o.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/b1bbb565gy1gg8ga9axnuj20ge09g74j.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/b1bbb565gy1gg8gog1abmj20m008k0t4.jpg">
-<meta property="og:updated_time" content="2020-06-30T14:23:08.012Z">
+<meta property="og:updated_time" content="2020-07-02T14:47:30.813Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JUC之线程池">
 <meta name="twitter:description" content="在实际使用中，线程是很占用系统资源的，如果对线程管理不善很容易导致系统问题。因此，在大多数并发框架中都会使用线程池来管理线程。">
@@ -265,7 +265,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-30 22:23:08" itemprop="dateModified" datetime="2020-06-30T22:23:08+08:00">2020-06-30</time>
+                <time title="修改时间：2020-07-02 22:47:30" itemprop="dateModified" datetime="2020-07-02T22:47:30+08:00">2020-07-02</time>
               </span>
             
           
@@ -297,7 +297,7 @@
         <p>在实际使用中，线程是很占用系统资源的，如果对线程管理不善很容易导致系统问题。因此，在大多数并发框架中都会使用线程池来管理线程。</p>
 <a id="more"></a>
 
-<h2 id="1-为什么要使用线程池"><a href="#1-为什么要使用线程池" class="headerlink" title="1. 为什么要使用线程池"></a>1. 为什么要使用线程池</h2><p>如果不使用线程池，每一个任务都新开一个线程处理，这样开销太大，我们希望有固定数量的线程，来执行一些任务，这样就避免了反复创建线程并销毁线程所带来的开销问题。使用线程池管理线程主要有如下好处：</p>
+<h2 id="为什么要使用线程池"><a href="#为什么要使用线程池" class="headerlink" title="为什么要使用线程池"></a>为什么要使用线程池</h2><p>如果不使用线程池，每一个任务都新开一个线程处理，这样开销太大，我们希望有固定数量的线程，来执行一些任务，这样就避免了反复创建线程并销毁线程所带来的开销问题。使用线程池管理线程主要有如下好处：</p>
 <ul>
 <li><p>降低资源消耗。通过复用已存在的线程和降低线程关闭的次数来尽可能降低系统性能损耗。</p>
 </li>
@@ -306,7 +306,7 @@
 <li><p>提高线程的可管理性。线程是稀缺资源，如果无限制的创建，不仅会消耗系统资源，还会降低系统的稳定性，因此，需要使用线程池来管理线程。</p>
 </li>
 </ul>
-<h2 id="2-线程池的参数"><a href="#2-线程池的参数" class="headerlink" title="2. 线程池的参数"></a>2. 线程池的参数</h2><p>线程池Executor家族如下：</p>
+<h2 id="线程池的参数"><a href="#线程池的参数" class="headerlink" title="线程池的参数"></a>线程池的参数</h2><p>线程池Executor家族如下：</p>
 <p><img src="http://ww1.sinaimg.cn/large/b1bbb565gy1gg9lxs6bidj20mk0j3glv.jpg" alt></p>
 <p>java.util.concurrent.ThreadPoolExecutor是真正意义上的线程池。所有参数如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                             <span class="keyword">int</span> maximumPoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                             <span class="keyword">long</span> keepAliveTime,</span></span></span><br><span class="line"><span class="function"><span class="params">                             TimeUnit unit,</span></span></span><br><span class="line"><span class="function"><span class="params">                             BlockingQueue&lt;Runnable&gt; workQueue,</span></span></span><br><span class="line"><span class="function"><span class="params">                             ThreadFactory threadFactory,</span></span></span><br><span class="line"><span class="function"><span class="params">                             RejectedExecutionHandler handler)</span></span></span><br></pre></td></tr></table></figure>
@@ -328,7 +328,7 @@
 </ol>
 <p>整体流程如下：</p>
 <p><img src="http://ww1.sinaimg.cn/large/b1bbb565gy1gg76rfxiutj213t0igq73.jpg" alt="thread-add.jpg"></p>
-<h2 id="3-线程池的用法"><a href="#3-线程池的用法" class="headerlink" title="3.线程池的用法"></a>3.线程池的用法</h2><p>java.util.concurrent.Executors是一个工具类，为我们提供了构造线程池的便捷方法。Executors提供了如下的这几种常用的线程池：</p>
+<h2 id="线程池的用法"><a href="#线程池的用法" class="headerlink" title="线程池的用法"></a>线程池的用法</h2><p>java.util.concurrent.Executors是一个工具类，为我们提供了构造线程池的便捷方法。Executors提供了如下的这几种常用的线程池：</p>
 <h3 id="FixedThreadPool"><a href="#FixedThreadPool" class="headerlink" title="FixedThreadPool"></a>FixedThreadPool</h3><p>FixedThreadPool是固定大小的线程池，传进去的LinkedBlockingQueue是没有容量上限的，所以请求数越来越多，并且无法及时处理完毕的时候，会容易造成占用大量的内存，可能导致OOM。代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newFixedThreadPool</span><span class="params">(<span class="keyword">int</span> nThreads)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">new</span> ThreadPoolExecutor(nThreads, nThreads,</span><br><span class="line">                                     <span class="number">0L</span>, TimeUnit.MILLISECONDS,</span><br><span class="line">                                     <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -356,7 +356,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ExecutorService;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.Executors;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> gelong</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/6/28 23:16</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Shutdown</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        ExecutorService service = Executors.newFixedThreadPool(<span class="number">10</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">            service.execute(<span class="keyword">new</span> Tack());</span><br><span class="line">        &#125;</span><br><span class="line">        List&lt;Runnable&gt; runnables = service.shutdownNow();</span><br><span class="line">        System.out.println(runnables);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Tack</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">10</span>);</span><br><span class="line">            System.out.println(Thread.currentThread().getName());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">"被中断了"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><img src="http://ww1.sinaimg.cn/large/b1bbb565gy1gg8gog1abmj20m008k0t4.jpg" alt="shutdownNow.jpg"></p>
-<h2 id="4-线程池的状态和使用注意点"><a href="#4-线程池的状态和使用注意点" class="headerlink" title="4. 线程池的状态和使用注意点"></a>4. 线程池的状态和使用注意点</h2><p>线程池一共有5种状态，分别是：</p>
+<h2 id="线程池的状态和使用注意点"><a href="#线程池的状态和使用注意点" class="headerlink" title="线程池的状态和使用注意点"></a>线程池的状态和使用注意点</h2><p>线程池一共有5种状态，分别是：</p>
 <ul>
 <li>RUNNING：接受新任务并处理排队任务</li>
 <li>SHUTDOWN：不接受新任务，但处理排队任务</li>
@@ -370,7 +370,7 @@
 <li>避免线程数过度增加</li>
 <li>排查线程泄露</li>
 </ul>
-<h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a>5. 总结</h2><p>线程池能提高我们的效率，Java 本身提供了工具类java.util.concurrent.Executors便于我们构造线程池，但是在实际开发中我们应该根据业务使用ThreadPoolExecutor的构造方法来构造线程池。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>线程池能提高我们的效率，Java 本身提供了工具类java.util.concurrent.Executors便于我们构造线程池，但是在实际开发中我们应该根据业务使用ThreadPoolExecutor的构造方法来构造线程池。</p>
 
     </div>
 
@@ -386,9 +386,9 @@
           
           <div class="post-tags">
             
-              <a href="/tags/多线程/" rel="tag"># 多线程</a>
-            
               <a href="/tags/JUC/" rel="tag"># JUC</a>
+            
+              <a href="/tags/多线程/" rel="tag"># 多线程</a>
             
           </div>
         
@@ -407,6 +407,10 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2020/06/30/JUC之ThreadLocal/" rel="prev" title="JUC之ThreadLocal">
+                  JUC之ThreadLocal <i class="fa fa-chevron-right"></i>
+                </a>
               
             </div>
           </div>
@@ -455,7 +459,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-为什么要使用线程池"><span class="nav-number">1.</span> <span class="nav-text">1. 为什么要使用线程池</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-线程池的参数"><span class="nav-number">2.</span> <span class="nav-text">2. 线程池的参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-线程池的用法"><span class="nav-number">3.</span> <span class="nav-text">3.线程池的用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FixedThreadPool"><span class="nav-number">3.1.</span> <span class="nav-text">FixedThreadPool</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SingleThreadExecutor"><span class="nav-number">3.2.</span> <span class="nav-text">SingleThreadExecutor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CachedThreadPool"><span class="nav-number">3.3.</span> <span class="nav-text">CachedThreadPool</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ScheduledThreadPoolExecutor"><span class="nav-number">3.4.</span> <span class="nav-text">ScheduledThreadPoolExecutor</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-线程池的状态和使用注意点"><span class="nav-number">4.</span> <span class="nav-text">4. 线程池的状态和使用注意点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-总结"><span class="nav-number">5.</span> <span class="nav-text">5. 总结</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要使用线程池"><span class="nav-number">1.</span> <span class="nav-text">为什么要使用线程池</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池的参数"><span class="nav-number">2.</span> <span class="nav-text">线程池的参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池的用法"><span class="nav-number">3.</span> <span class="nav-text">线程池的用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FixedThreadPool"><span class="nav-number">3.1.</span> <span class="nav-text">FixedThreadPool</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SingleThreadExecutor"><span class="nav-number">3.2.</span> <span class="nav-text">SingleThreadExecutor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CachedThreadPool"><span class="nav-number">3.3.</span> <span class="nav-text">CachedThreadPool</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ScheduledThreadPoolExecutor"><span class="nav-number">3.4.</span> <span class="nav-text">ScheduledThreadPoolExecutor</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池的状态和使用注意点"><span class="nav-number">4.</span> <span class="nav-text">线程池的状态和使用注意点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -473,7 +477,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -56,7 +56,7 @@
 </script>
 
   <meta name="description" content="在多线程条件下，出现线程安全的问题一般是因为主内存和工作内存数据不一致性和重排序导致的，那么，理解它们的核心在于理解java内存模型(JMM)。">
-<meta name="keywords" content="Java,多线程">
+<meta name="keywords" content="多线程,Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="并发编程底层原理-上篇">
 <meta property="og:url" content="https://durex3.github.io/2020/06/22/并发编程底层原理-上篇/index.html">
@@ -64,7 +64,7 @@
 <meta property="og:description" content="在多线程条件下，出现线程安全的问题一般是因为主内存和工作内存数据不一致性和重排序导致的，那么，理解它们的核心在于理解java内存模型(JMM)。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/b1bbb565gy1gg2no1e3jcj20o00hr0up.jpg">
-<meta property="og:updated_time" content="2020-06-25T11:15:26.440Z">
+<meta property="og:updated_time" content="2020-07-02T14:47:57.960Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="并发编程底层原理-上篇">
 <meta name="twitter:description" content="在多线程条件下，出现线程安全的问题一般是因为主内存和工作内存数据不一致性和重排序导致的，那么，理解它们的核心在于理解java内存模型(JMM)。">
@@ -261,7 +261,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-25 19:15:26" itemprop="dateModified" datetime="2020-06-25T19:15:26+08:00">2020-06-25</time>
+                <time title="修改时间：2020-07-02 22:47:57" itemprop="dateModified" datetime="2020-07-02T22:47:57+08:00">2020-07-02</time>
               </span>
             
           
@@ -293,7 +293,7 @@
         <p>在多线程条件下，出现线程安全的问题一般是因为主内存和工作内存数据不一致性和重排序导致的，那么，理解它们的核心在于理解java内存模型(JMM)。</p>
 <a id="more"></a>
 
-<h2 id="1-JMM"><a href="#1-JMM" class="headerlink" title="1. JMM"></a>1. JMM</h2><p>JMM(Java内存模型)是一组规范，需要各个JVM的实现来遵循JMM规范，以便于开发者可以利用这些规范，更方便地开发多线程程序。如果没有这样的一个JMM内存模型来规范，那么很可能经过了不同的JVM的不同规则的重排序之后，导致不同的虚拟机上的运行结果不一样。</p>
+<h2 id="JMM"><a href="#JMM" class="headerlink" title="JMM"></a>JMM</h2><p>JMM(Java内存模型)是一组规范，需要各个JVM的实现来遵循JMM规范，以便于开发者可以利用这些规范，更方便地开发多线程程序。如果没有这样的一个JMM内存模型来规范，那么很可能经过了不同的JVM的不同规则的重排序之后，导致不同的虚拟机上的运行结果不一样。</p>
 <p>volatile、synchronized、lock等原理都是JMM，如果没有JMM那就需要我们指定什么时候用内存栅栏等，有了JMM，我们只需要用同步工具和关键字就可以开发并发程序。JMM中最重要的三点内容是：重排序、可见性、原子性。</p>
 <h3 id="重排序"><a href="#重排序" class="headerlink" title="重排序"></a>重排序</h3><p>在线程内部的两行代码的实际执行顺序和代码在Java文件中的不一致，代码指令并不是严格按照代码语句顺序执行的，它们的顺序被改变了，这就是重排序。比如：</p>
 <pre><code>int a = 1;
@@ -315,7 +315,7 @@ int b = a;</code></pre><p>像上面这种b对a有数据依赖的，是不会被�
 <p>所有的共享变量存在于主内存中，每个线程有自己的本地内存，而且线程读写共享数据也是通过本地内存交换的，所以才导致了可见性问题。主内存和本地内存的图示：</p>
 <p><img src="http://ww1.sinaimg.cn/large/b1bbb565gy1gg2no1e3jcj20o00hr0up.jpg" alt="memory.jpg"></p>
 <p>Java作为高级语言，屏蔽了CPU多层缓存这些底层细节，用JMM 定义了一套读写内存数据的规范，虽然我们不再需要关心一级缓存和二级缓存的问题，但是，JMM抽象了主内存和本地内存的概念。这里说的本地内存并不是真的是一块给每个线程分配的内存，而是JMM的一个抽象，是对于寄存器、一级缓存、二级缓存等的抽象。</p>
-<h2 id="2-Happens-Before"><a href="#2-Happens-Before" class="headerlink" title="2. Happens-Before"></a>2. Happens-Before</h2><p>Happens-Before规则是用来解决可见性问题的：在时间上，动作A发生在动作B之前，B保证能看见A，这就是<br>Happens-Before。</p>
+<h2 id="Happens-Before"><a href="#Happens-Before" class="headerlink" title="Happens-Before"></a>Happens-Before</h2><p>Happens-Before规则是用来解决可见性问题的：在时间上，动作A发生在动作B之前，B保证能看见A，这就是<br>Happens-Before。</p>
 <p>Happens-Before的八个规则：</p>
 <ol>
 <li>单线程happen-before原则：在同一个线程中，书写在前面的操作happen-before后面的操作。</li>
@@ -327,7 +327,7 @@ int b = a;</code></pre><p>像上面这种b对a有数据依赖的，是不会被�
 <li>线程终结的happen-before原则：线程中的所有操作都happen-before线程的终止检测。</li>
 <li>对象创建的happen-before原则：一个对象的初始化完成先于他的finalize方法调用。</li>
 </ol>
-<h2 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h2><p>本文介绍JMM的基本原理和Happens-Before的规则，下篇我们将介绍volatile关键字和原子性问题。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文介绍JMM的基本原理和Happens-Before的规则，下篇我们将介绍volatile关键字和原子性问题。</p>
 
     </div>
 
@@ -343,9 +343,9 @@ int b = a;</code></pre><p>像上面这种b对a有数据依赖的，是不会被�
           
           <div class="post-tags">
             
-              <a href="/tags/Java/" rel="tag"># Java</a>
-            
               <a href="/tags/多线程/" rel="tag"># 多线程</a>
+            
+              <a href="/tags/Java/" rel="tag"># Java</a>
             
           </div>
         
@@ -416,7 +416,7 @@ int b = a;</code></pre><p>像上面这种b对a有数据依赖的，是不会被�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-JMM"><span class="nav-number">1.</span> <span class="nav-text">1. JMM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重排序"><span class="nav-number">1.1.</span> <span class="nav-text">重排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可见性"><span class="nav-number">1.2.</span> <span class="nav-text">可见性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Happens-Before"><span class="nav-number">2.</span> <span class="nav-text">2. Happens-Before</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-总结"><span class="nav-number">3.</span> <span class="nav-text">3. 总结</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JMM"><span class="nav-number">1.</span> <span class="nav-text">JMM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重排序"><span class="nav-number">1.1.</span> <span class="nav-text">重排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可见性"><span class="nav-number">1.2.</span> <span class="nav-text">可见性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Happens-Before"><span class="nav-number">2.</span> <span class="nav-text">Happens-Before</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -434,7 +434,7 @@ int b = a;</code></pre><p>像上面这种b对a有数据依赖的，是不会被�
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
