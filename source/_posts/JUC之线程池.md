@@ -52,7 +52,7 @@ java.util.concurrent.ThreadPoolExecutor是真正意义上的线程池。所有�
 
 1. 如果线程数小于corePoolSize，即使其他工作线程处于空闲状态，也会创建一个新的线程来执行新任务。
 2. 如果线程数 > corePoolSize则放入workQueue。
-3. 如果workQueue已满。并且当前线程数 <= maximumPoolSize，则创建一个新线程来执行任务。
+3. 如果workQueue已满。并且当前线程数 < maximumPoolSize，则创建一个新线程来执行任务。
 
 整体流程如下：
 
@@ -77,7 +77,7 @@ FixedThreadPool是固定大小的线程池，传进去的LinkedBlockingQueue是�
 
 ### SingleThreadExecutor ###
 
-SingleThreadExecutor和FixedThreadPool差不多，只不过把线程池中只能有一个线程，当请求数越来越多，并且无法及时处理完毕的时候，也会容易造成占用大量的内存，可能导致OOM。代码如下：
+SingleThreadExecutor和FixedThreadPool差不多，只不过线程池中只能有一个线程，当请求数越来越多，并且无法及时处理完毕的时候，也会容易造成占用大量的内存，可能导致OOM。代码如下：
 
 ```java
 
@@ -91,7 +91,7 @@ SingleThreadExecutor和FixedThreadPool差不多，只不过把线程池中只能
 
 ### CachedThreadPool ###
 
-CachedThreadPool在执行过程中通常会创建与所需数量相同的线程，然后在它回收旧线程时停止创建新线程。SynchronousQueue装等待的任务，这个阻塞队列没有存储空间，这意味着只要有请求到来，就必须要找到一条工作线程处理他。这种线程池同样会造成导致OOM。代码如下：
+CachedThreadPool在执行过程中通常会创建与所需数量相同的线程，然后在它回收旧线程时停止创建新线程。SynchronousQueue封装等待的任务，这个阻塞队列没有存储空间，这意味着只要有请求到来，就必须要找到一条工作线程处理他。这种线程池同样会造成导致OOM。代码如下：
 
 ```java
 
