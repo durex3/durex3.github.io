@@ -56,7 +56,7 @@
 </script>
 
   <meta name="description" content="在实际使用中，线程是很占用系统资源的，如果对线程管理不善很容易导致系统问题。因此，在大多数并发框架中都会使用线程池来管理线程。">
-<meta name="keywords" content="JUC,多线程">
+<meta name="keywords" content="多线程,JUC">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JUC之线程池">
 <meta property="og:url" content="https://durex3.github.io/2020/06/27/JUC之线程池/index.html">
@@ -68,7 +68,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/b1bbb565gy1gg8ffu210fj20jm0ftq3o.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/b1bbb565gy1gg8ga9axnuj20ge09g74j.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/b1bbb565gy1gg8gog1abmj20m008k0t4.jpg">
-<meta property="og:updated_time" content="2020-07-02T14:47:30.813Z">
+<meta property="og:updated_time" content="2020-07-11T05:50:46.938Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JUC之线程池">
 <meta name="twitter:description" content="在实际使用中，线程是很占用系统资源的，如果对线程管理不善很容易导致系统问题。因此，在大多数并发框架中都会使用线程池来管理线程。">
@@ -265,7 +265,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-02 22:47:30" itemprop="dateModified" datetime="2020-07-02T22:47:30+08:00">2020-07-02</time>
+                <time title="修改时间：2020-07-11 13:50:46" itemprop="dateModified" datetime="2020-07-11T13:50:46+08:00">2020-07-11</time>
               </span>
             
           
@@ -324,7 +324,7 @@
 <ol>
 <li>如果线程数小于corePoolSize，即使其他工作线程处于空闲状态，也会创建一个新的线程来执行新任务。</li>
 <li>如果线程数 &gt; corePoolSize则放入workQueue。</li>
-<li>如果workQueue已满。并且当前线程数 &lt;= maximumPoolSize，则创建一个新线程来执行任务。</li>
+<li>如果workQueue已满。并且当前线程数 &lt; maximumPoolSize，则创建一个新线程来执行任务。</li>
 </ol>
 <p>整体流程如下：</p>
 <p><img src="http://ww1.sinaimg.cn/large/b1bbb565gy1gg76rfxiutj213t0igq73.jpg" alt="thread-add.jpg"></p>
@@ -332,10 +332,10 @@
 <h3 id="FixedThreadPool"><a href="#FixedThreadPool" class="headerlink" title="FixedThreadPool"></a>FixedThreadPool</h3><p>FixedThreadPool是固定大小的线程池，传进去的LinkedBlockingQueue是没有容量上限的，所以请求数越来越多，并且无法及时处理完毕的时候，会容易造成占用大量的内存，可能导致OOM。代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newFixedThreadPool</span><span class="params">(<span class="keyword">int</span> nThreads)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">new</span> ThreadPoolExecutor(nThreads, nThreads,</span><br><span class="line">                                     <span class="number">0L</span>, TimeUnit.MILLISECONDS,</span><br><span class="line">                                     <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="SingleThreadExecutor"><a href="#SingleThreadExecutor" class="headerlink" title="SingleThreadExecutor"></a>SingleThreadExecutor</h3><p>SingleThreadExecutor和FixedThreadPool差不多，只不过把线程池中只能有一个线程，当请求数越来越多，并且无法及时处理完毕的时候，也会容易造成占用大量的内存，可能导致OOM。代码如下：</p>
+<h3 id="SingleThreadExecutor"><a href="#SingleThreadExecutor" class="headerlink" title="SingleThreadExecutor"></a>SingleThreadExecutor</h3><p>SingleThreadExecutor和FixedThreadPool差不多，只不过线程池中只能有一个线程，当请求数越来越多，并且无法及时处理完毕的时候，也会容易造成占用大量的内存，可能导致OOM。代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newSingleThreadExecutor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">new</span> FinalizableDelegatedExecutorService</span><br><span class="line">           (<span class="keyword">new</span> ThreadPoolExecutor(<span class="number">1</span>, <span class="number">1</span>,</span><br><span class="line">                                   <span class="number">0L</span>, TimeUnit.MILLISECONDS,</span><br><span class="line">                                   <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;()));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="CachedThreadPool"><a href="#CachedThreadPool" class="headerlink" title="CachedThreadPool"></a>CachedThreadPool</h3><p>CachedThreadPool在执行过程中通常会创建与所需数量相同的线程，然后在它回收旧线程时停止创建新线程。SynchronousQueue装等待的任务，这个阻塞队列没有存储空间，这意味着只要有请求到来，就必须要找到一条工作线程处理他。这种线程池同样会造成导致OOM。代码如下：</p>
+<h3 id="CachedThreadPool"><a href="#CachedThreadPool" class="headerlink" title="CachedThreadPool"></a>CachedThreadPool</h3><p>CachedThreadPool在执行过程中通常会创建与所需数量相同的线程，然后在它回收旧线程时停止创建新线程。SynchronousQueue封装等待的任务，这个阻塞队列没有存储空间，这意味着只要有请求到来，就必须要找到一条工作线程处理他。这种线程池同样会造成导致OOM。代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newCachedThreadPool</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ThreadPoolExecutor(<span class="number">0</span>, Integer.MAX_VALUE,</span><br><span class="line">                                  <span class="number">60L</span>, TimeUnit.SECONDS,</span><br><span class="line">                                  <span class="keyword">new</span> SynchronousQueue&lt;Runnable&gt;());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="ScheduledThreadPoolExecutor"><a href="#ScheduledThreadPoolExecutor" class="headerlink" title="ScheduledThreadPoolExecutor"></a>ScheduledThreadPoolExecutor</h3><p>ScheduledThreadPoolExecutor支持定时执行任务，创建一个corePoolSize为传入参数。<br>可以调用schedule方法执行任务。代码如下：</p>
@@ -386,9 +386,9 @@
           
           <div class="post-tags">
             
-              <a href="/tags/JUC/" rel="tag"># JUC</a>
-            
               <a href="/tags/多线程/" rel="tag"># 多线程</a>
+            
+              <a href="/tags/JUC/" rel="tag"># JUC</a>
             
           </div>
         
@@ -477,7 +477,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
