@@ -55,17 +55,19 @@
   };
 </script>
 
-  <meta name="description" content="持续学习者">
-<meta property="og:type" content="website">
-<meta property="og:title" content="顾临风的博客">
-<meta property="og:url" content="https://durex3.github.io/archives/2020/05/index.html">
+  <meta name="description" content="JUC有两大核心：CAS和AQS，其中CAS是java.util.concurrent.atomic包的基础。">
+<meta name="keywords" content="Java,多线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JUC之CAS">
+<meta property="og:url" content="https://durex3.github.io/2020/07/13/JUC之CAS/index.html">
 <meta property="og:site_name" content="顾临风的博客">
-<meta property="og:description" content="持续学习者">
+<meta property="og:description" content="JUC有两大核心：CAS和AQS，其中CAS是java.util.concurrent.atomic包的基础。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-07-13T14:20:22.656Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="顾临风的博客">
-<meta name="twitter:description" content="持续学习者">
-  <link rel="canonical" href="https://durex3.github.io/archives/2020/05/">
+<meta name="twitter:title" content="JUC之CAS">
+<meta name="twitter:description" content="JUC有两大核心：CAS和AQS，其中CAS是java.util.concurrent.atomic包的基础。">
+  <link rel="canonical" href="https://durex3.github.io/2020/07/13/JUC之CAS/">
 
 
 <script id="page-configurations">
@@ -73,13 +75,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
-    isArchive: true
+    isArchive: false
   };
 </script>
 
-  <title>归档 | 顾临风的博客</title>
+  <title>JUC之CAS | 顾临风的博客</title>
   
 
 
@@ -209,84 +211,142 @@
         <div class="content-wrap">
             
 
-  
-    
-    
-  
-    
-    
-  
-    
-    
-  
-    
-    
-  
-  
-
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        
-        
-        
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="https://durex3.github.io/2020/07/13/JUC之CAS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="顾临风">
+      <meta itemprop="description" content="持续学习者">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="顾临风的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">JUC之CAS
+
           
-        
-        <span class="collection-header">嗯..! 目前共计 21 篇日志。 继续努力。</span>
-      </div>
-      
+        </h1>
 
-      
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
 
-  
-  
+              
+                
+              
 
-  
+              <time title="创建时间：2020-07-13 21:13:01 / 修改时间：22:20:22" itemprop="dateCreated datePublished" datetime="2020-07-13T21:13:01+08:00">2020-07-13</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/多线程/" itemprop="url" rel="index"><span itemprop="name">多线程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
     
-    <div class="collection-year">
-      <h1 class="collection-header">2020</h1>
-    </div>
-  
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <p>JUC有两大核心：CAS和AQS，其中CAS是java.util.concurrent.atomic包的基础。</p>
+<a id="more"></a>
 
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2020/05/30/究竟如何创建新线程/" itemprop="url">
-            <span itemprop="name">究竟如何创建新线程</span>
-          </a>
-        
-      </h2>
+<h2 id="什么是CAS"><a href="#什么是CAS" class="headerlink" title="什么是CAS"></a>什么是CAS</h2><p>CAS的全称为Compare-And-Swap，是一种思想和算法，同时是一条CPU指令。CAS有三个操作数：内存值V、预期值A、要修改的值B，当且仅当预期值和内存值相同时，才将内存值修改为B，否则什么都不做。</p>
+<h2 id="CAS源码分析"><a href="#CAS源码分析" class="headerlink" title="CAS源码分析"></a>CAS源码分析</h2><p>CAS是乐观锁，是一种冲突重试的机制，在并发竞争不是很激烈的情况下，他的性能要好于基于锁的并发性能。因为并发竞争激烈的话，冲突重试的过程很多。这里以AtomicInteger为例分析源码。</p>
+<p>AtomicInteger会加载Unsafe工具，用来直接操作内存数据。Unsafe是CAS的核心类。Java无法直接访问底层操作系统，而是通过本地(native)方法来访问。不过尽管如此，JVM还是开了一个后门，JDK中有一个类Unsafe，它提供了硬件级别的原子操作。valueOffset表示的是变量值在内存中的偏移地址，因为Unsafe就是根据内存偏移地址获取数据的原值的，这样我们就能通过unsafe来实现CAS了。value是用volatile修饰的，保证了多线程之间看到的value值是同一份。源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        valueOffset = unsafe.objectFieldOffset</span><br><span class="line">            (AtomicInteger.class.getDeclaredField(<span class="string">"value"</span>));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception ex) &#123; <span class="keyword">throw</span> <span class="keyword">new</span> Error(ex); &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">int</span> value;</span><br></pre></td></tr></table></figure>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-05-30T00:01:04+08:00"
-              content="2020-05-30">
-          05-30
-        </time>
-      </div>
+<p>AtomicInteger的核心方法就是getAndAddInt(Object var1, long var2, int var4)。通过调用unsafe的getIntVolatile(var1, var2)，这是个native方法，其实就是获取var1中，var2偏移量处的值。var1就是AtomicInteger，var2就是我们前面提到的valueOffset，这样我们就从内存里获取到现在valueOffset处的值了。compareAndSwapInt(var1, var2, var5, var5 + var4)其实换成compareAndSwapInt(obj, offset, expect, update)比较清楚，意思就是如果obj内的value和expect相等，就证明没有其他线程改变过这个变量，那么就更新它为update，如果这一步的CAS没有成功，那就采用自旋的方式继续进行CAS操作。源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">getAndAddInt</span><span class="params">(Object var1, <span class="keyword">long</span> var2, <span class="keyword">int</span> var4)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> var5;</span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        var5 = <span class="keyword">this</span>.getIntVolatile(var1, var2);</span><br><span class="line">    &#125; <span class="keyword">while</span>(!<span class="keyword">this</span>.compareAndSwapInt(var1, var2, var5, var5 + var4));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> var5;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    </header>
-  </article>
-
-
-
+<h2 id="CAS的缺点"><a href="#CAS的缺点" class="headerlink" title="CAS的缺点"></a>CAS的缺点</h2><p>CAS也有缺点，就是ABA问题。什么是ABA问题？有如下操作：</p>
+<ul>
+<li>线程一：获取出数据的初始值是A，计划实施CAS，期望数据仍是A的时候，修改才能成功</li>
+<li>线程二：将数据修改成B</li>
+<li>线程三：将数据修改回A</li>
+</ul>
+<p>此时线程一进入发现数据仍然为期望数据，但是这个时候的A已经不是之前的A了，CAS因为是比较的是数值，所以可能存在安全隐患。</p>
 
     </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Java/" rel="tag"># Java</a>
+            
+              <a href="/tags/多线程/" rel="tag"># 多线程</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2020/07/09/JUC之atomic包/" rel="next" title="JUC之atomic包">
+                  <i class="fa fa-chevron-left"></i> JUC之atomic包
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
   </div>
   
   
   
+  </article>
 
-  
-
+  </div>
 
 
           </div>
@@ -305,6 +365,11 @@
 
   <aside class="sidebar">
     <div class="sidebar-inner">
+        
+        
+        
+        
+      
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
@@ -317,6 +382,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是CAS"><span class="nav-number">1.</span> <span class="nav-text">什么是CAS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CAS源码分析"><span class="nav-number">2.</span> <span class="nav-text">CAS源码分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CAS的缺点"><span class="nav-number">3.</span> <span class="nav-text">CAS的缺点</span></a></li></ol></div>
+        
       </div>
       <!--/noindex-->
 
